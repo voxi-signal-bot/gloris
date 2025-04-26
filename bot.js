@@ -5,9 +5,9 @@ const sqlite3 = require('sqlite3').verbose();
 const crypto = require('crypto');
 
 // Настройки бота
-const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY'; // Вставьте ваш токен бота
-const CHANNEL_ID = '/xuiuug'; // ID вашего Telegram-канала
-const MINI_APP_URL = 'https://your-mini-app-url'; // URL Mini App (замените после развертывания)
+const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY'; // Ваш токен бота
+const CHANNEL_ID = 'xui'; // Укажите имя публичного канала без @ (например, VoxiSignal для @VoxiSignal) или ID приватного канала (например, -1001234567890)
+const MINI_APP_URL = 'http://localhost:3000/miniapp'; // Для локального тестирования; замените на продакшен-URL после развертывания
 const APP_URL = 'https://gloris-production.up.railway.app'; // URL сервера (для локального тестирования: http://localhost:3000)
 const POSTBACK_SECRET = 'your_1win_secret'; // Секретный ключ для постбэков
 const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo&promocode=VIP662';
@@ -20,7 +20,7 @@ const db = new sqlite3.Database('users.db');
 db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS users (
     user_id TEXT PRIMARY KEY,
-    language TEXT,
+    language TEXT DEFAULT 'ru',
     subscribed INTEGER DEFAULT 0,
     registered INTEGER DEFAULT 0,
     deposited INTEGER DEFAULT 0
@@ -64,30 +64,32 @@ app.get('/postback', (req, res) => {
     db.run(`UPDATE users SET registered = 1 WHERE user_id = ?`, [user_id], (err) => {
       if (err) console.error('DB error on registration:', err);
     });
-    const lang = getUserLanguage(user_id);
-    bot.telegram.sendMessage(user_id, getMessage('registration_success', lang), {
-      reply_markup: {
-        inline_keyboard: [
-          [{ text: getMessage('deposit_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${user_id}` }]
-        ]
-      }
-    }).catch(err => console.error('Error sending registration message:', err));
+    getUserLanguage(user_id).then(lang => {
+      bot.telegram.sendMessage(user_id, getMessage('registration_success', lang), {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: getMessage('deposit_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${user_id}` }]
+          ]
+        }
+      }).catch(err => console.error('Error sending registration message:', err));
+    });
   } else if (event_id === 'deposit') {
     const depositAmount = parseFloat(amount);
     if (depositAmount >= 10) {
       db.run(`UPDATE users SET deposited = 1 WHERE user_id = ?`, [user_id], (err) => {
         if (err) console.error('DB error on deposit:', err);
       });
-      const lang = getUserLanguage(user_id);
-      bot.telegram.sendMessage(user_id, getMessage('select_game', lang), {
-        reply_markup: {
-          inline_keyboard: [
-            [{ text: getMessage('aviator_button', lang), callback_data: 'game_aviator' }],
-            [{ text: getMessage('luckyjet_button', lang), callback_data: 'game_luckyjet' }],
-            [{ text: getMessage('mines_button', lang), callback_data: 'game_mines' }]
-          ]
-        }
-      }).catch(err => console.error('Error sending deposit message:', err));
+      getUserLanguage(user_id).then(lang => {
+        bot.telegram.sendMessage(user_id, getMessage('select_game', lang), {
+          reply_markup: {
+            inline_keyboard: [
+              [{ text: getMessage('aviator_button', lang), callback_data: 'game_aviator' }],
+              [{ text: getMessage('luckyjet_button', lang), callback_data: 'game_luckyjet' }],
+              [{ text: getMessage('mines_button', lang), callback_data: 'game_mines' }]
+            ]
+          }
+        }).catch(err => console.error('Error sending deposit message:', err));
+      });
     }
   }
   res.sendStatus(200);
@@ -105,14 +107,17 @@ function verifySignature(query, secret) {
   return receivedSignature === computedSignature;
 }
 
-// Получение языка пользователя
+// Получение языка пользователя с использованием промисов
 function getUserLanguage(user_id) {
-  let language = 'ru';
-  db.get(`SELECT language FROM users WHERE user_id = ?`, [user_id], (err, row) => {
-    if (err) console.error('DB error on language fetch:', err);
-    if (row) language = row.language;
+  return new Promise((resolve) => {
+    db.get(`SELECT language FROM users WHERE user_id = ?`, [user_id], (err, row) => {
+      if (err) {
+        console.error('DB error on language fetch:', err);
+        resolve('ru');
+      }
+      resolve(row?.language || 'ru');
+    });
   });
-  return language;
 }
 
 // Сообщения на разных языках
@@ -384,7 +389,7 @@ Bizim botumuz mərc qoymaq üçün optimal anı müəyyənləşdirməyə kömək
     get_signal: 'SIQNAL AL'
   },
   tr: {
-    welcome: 'Voxy_Soft\'a hoş geldiniz! Botu kullanmak için kanalımıza abone olun 🤝',
+    welcome: "Voxy_Soft'a hoş geldiniz! Botu kullanmak için kanalımıza abone olun 🤝",
     subscribe_button: 'Kanala abone ol',
     check_subscription: 'Kontrol et',
     main_menu: 'Ana menü:',
@@ -430,27 +435,36 @@ function getMessage(key, lang, user_id = '') {
   return message;
 }
 
-// Проверка подписки
+// Проверка подписки с логированием
 async function checkSubscription(ctx) {
+  const userId = lowering.toString();
+  console.log(`Checking subscription for user ${userId} in channel ${CHANNEL_ID}`);
   try {
-    const chatMember = await ctx.telegram.getChatMember(CHANNEL_ID, ctx.chat.id);
+    const chatMember = await ctx.telegram.getChatMember(CHANNEL_ID, userId);
+    console.log(`Chat member status: ${chatMember.status}`);
     return ['member', 'administrator', 'creator'].includes(chatMember.status);
   } catch (err) {
     console.error('Error checking subscription:', err);
+    if (err.response?.error_code === 400 && err.response?.description.includes('chat not found')) {
+      ctx.reply('Ошибка: канал не найден. Пожалуйста, проверьте CHANNEL_ID.');
+    } else if (err.response?.error_code === 403) {
+      ctx.reply('Ошибка: бот не имеет прав администратора в канале.');
+    }
     return false;
   }
 }
 
 // Команда /start
-bot.start((ctx) => {
+bot.start(async (ctx) => {
   const chatId = ctx.chat.id;
-  db.get(`SELECT * FROM users WHERE user_id = ?`, [chatId], (err, row) => {
+  console.log(`Processing /start for user ${chatId}`);
+  db.get(`SELECT * FROM users WHERE user_id = ?`, [chatId], async (err, row) => {
     if (err) {
       console.error('DB error on user check:', err);
-      return;
+      return ctx.reply('Ошибка базы данных. Попробуйте позже.');
     }
     if (!row) {
-      db.run(`INSERT INTO users (user_id) VALUES (?)`, [chatId], (err) => {
+      db.run(`INSERT INTO users (user_id, language) VALUES (?, 'ru')`, [chatId], (err) => {
         if (err) console.error('DB error on user insert:', err);
       });
       ctx.reply('Выберите язык / Select language:', {
@@ -464,7 +478,7 @@ bot.start((ctx) => {
         }
       }).catch(err => console.error('Error sending language selection:', err));
     } else {
-      sendWelcomeMessage(ctx, row.language);
+      await sendWelcomeMessage(ctx, row.language || 'ru');
     }
   });
 });
@@ -473,6 +487,7 @@ bot.start((ctx) => {
 bot.on('callback_query', async (ctx) => {
   const chatId = ctx.chat.id;
   const data = ctx.callbackQuery.data;
+  console.log(`Received callback query: ${data} from user ${chatId}`);
 
   if (data.startsWith('lang_')) {
     const lang = data.split('_')[1];
@@ -482,22 +497,37 @@ bot.on('callback_query', async (ctx) => {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
     await sendWelcomeMessage(ctx, lang);
   } else if (data === 'check_subscription') {
-    const isSubscribed = await checkSubscription(ctx);
-    if (isSubscribed) {
-      db.run(`UPDATE users SET subscribed = 1 WHERE user_id = ?`, [chatId], (err) => {
-        if (err) console.error('DB error on subscription update:', err);
-      });
-      await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-      await sendMainMenu(ctx, getUserLanguage(chatId));
-    } else {
-      ctx.answerCbQuery('Пожалуйста, подпишитесь на канал! / Please subscribe to the channel!', true).catch(err => console.error('Error answering callback:', err));
-    }
+    db.get(`SELECT subscribed FROM users WHERE user_id = ?`, [chatId], async (err, row) => {
+      if (err) {
+        console.error('DB error on subscription check:', err);
+        return ctx.reply('Ошибка базы данных. Попробуйте позже.');
+      }
+      if (row.subscribed) {
+        console.log(`User ${chatId} already subscribed, sending main menu`);
+        await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+        await sendMainMenu(ctx, await getUserLanguage(chatId));
+      } else {
+        const isSubscribed = await checkSubscription(ctx);
+        if (isSubscribed) {
+          db.run(`UPDATE users SET subscribed = 1 WHERE user_id = ?`, [chatId], (err) => {
+            if (err) console.error('DB error on subscription update:', err);
+          });
+          console.log(`User ${chatId} subscribed, sending main menu`);
+          await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+          await sendMainMenu(ctx, await getUserLanguage(chatId));
+        } else {
+          console.log(`User ${chatId} not subscribed`);
+          ctx.answerCbQuery('Пожалуйста, подпишитесь на канал! / Please subscribe to the channel!', true)
+            .catch(err => console.error('Error answering callback:', err));
+        }
+      }
+    });
   } else if (data === 'main_menu') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-    await sendMainMenu(ctx, getUserLanguage(chatId));
+    await sendMainMenu(ctx, await getUserLanguage(chatId));
   } else if (data === 'registration') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-    const lang = getUserLanguage(chatId);
+    const lang = await getUserLanguage(chatId);
     ctx.reply(getMessage('registration_error', lang), {
       reply_markup: {
         inline_keyboard: [
@@ -508,7 +538,7 @@ bot.on('callback_query', async (ctx) => {
     }).catch(err => console.error('Error sending registration error:', err));
   } else if (data === 'instruction') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-    const lang = getUserLanguage(chatId);
+    const lang = await getUserLanguage(chatId);
     ctx.reply(getMessage('instruction', lang, chatId), {
       reply_markup: {
         inline_keyboard: [
@@ -540,9 +570,9 @@ bot.on('callback_query', async (ctx) => {
     db.get(`SELECT * FROM users WHERE user_id = ?`, [chatId], async (err, row) => {
       if (err) {
         console.error('DB error on signal check:', err);
-        return;
+        return ctx.reply('Ошибка базы данных. Попробуйте позже.');
       }
-      const lang = getUserLanguage(chatId);
+      const lang = await getUserLanguage(chatId);
       if (!row.registered) {
         await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
         ctx.reply(getMessage('registration_error', lang), {
@@ -578,7 +608,7 @@ bot.on('callback_query', async (ctx) => {
     });
   } else if (data === 'game_aviator' || data === 'game_mines') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-    const lang = getUserLanguage(chatId);
+    const lang = await getUserLanguage(chatId);
     ctx.reply('Этот раздел находится в разработке. Пожалуйста, выберите LUCKY JET.', {
       reply_markup: {
         inline_keyboard: [
@@ -589,7 +619,7 @@ bot.on('callback_query', async (ctx) => {
     }).catch(err => console.error('Error sending placeholder message:', err));
   } else if (data === 'game_luckyjet') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-    const lang = getUserLanguage(chatId);
+    const lang = await getUserLanguage(chatId);
     ctx.reply(getMessage('luckyjet_welcome', lang), {
       reply_markup: {
         inline_keyboard: [
@@ -604,18 +634,20 @@ bot.on('callback_query', async (ctx) => {
 // Приветственное сообщение
 async function sendWelcomeMessage(ctx, lang) {
   const chatId = ctx.chat.id;
+  console.log(`Sending welcome message to user ${chatId} with language ${lang}`);
   db.get(`SELECT subscribed FROM users WHERE user_id = ?`, [chatId], async (err, row) => {
     if (err) {
       console.error('DB error on subscription check:', err);
-      return;
+      return ctx.reply('Ошибка базы данных. Попробуйте позже.');
     }
-    if (row.subscribed) {
+    if (row?.subscribed) {
+      console.log(`User ${chatId} already subscribed, sending main menu`);
       await sendMainMenu(ctx, lang);
     } else {
       ctx.reply(getMessage('welcome', lang), {
         reply_markup: {
           inline_keyboard: [
-            [{ text: getMessage('subscribe_button', lang), url: `https://t.me${CHANNEL_ID}` }],
+            [{ text: getMessage('subscribe_button', lang), url: `https://t.me/${CHANNEL_ID}` }],
             [{ text: getMessage('check_subscription', lang), callback_data: 'check_subscription' }]
           ]
         }
@@ -626,6 +658,7 @@ async function sendWelcomeMessage(ctx, lang) {
 
 // Главное меню
 async function sendMainMenu(ctx, lang) {
+  console.log(`Sending main menu to user ${ctx.chat.id} with language ${lang}`);
   ctx.reply(getMessage('main_menu', lang), {
     reply_markup: {
       inline_keyboard: [
@@ -639,9 +672,27 @@ async function sendMainMenu(ctx, lang) {
   }).catch(err => console.error('Error sending main menu:', err));
 }
 
-// Запуск сервера (локально используйте polling для тестирования)
-const PORT = 3000;
+// Глобальный обработчик ошибок
+bot.catch((err, ctx) => {
+  console.error(`Error for ${ctx.updateType}:`, err);
+  ctx.reply('Произошла ошибка. Попробуйте позже.');
+});
+
+// Запуск сервера
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  bot.launch(); // Используем polling для локального тестирования
+  const isProduction = process.env.NODE_ENV === 'production';
+  if (isProduction) {
+    // Настройка вебхука для продакшена
+    bot.telegram.setWebhook(`${APP_URL}/webhook`).then(() => {
+      console.log(`Webhook set to ${APP_URL}/webhook`);
+    }).catch(err => console.error('Error setting webhook:', err));
+    app.use(bot.webhookCallback('/webhook'));
+  } else {
+    // Polling для локального тестирования
+    bot.launch().then(() => {
+      console.log('Bot started in polling mode');
+    }).catch(err => console.error('Error starting bot:', err));
+  }
 });
