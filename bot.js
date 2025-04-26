@@ -6,9 +6,9 @@ const Database = require('better-sqlite3');
 // Настройки бота
 const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY';
 const CHANNEL_ID = '@xuiuugg';
-const MINI_APP_URL = 'https://voxi-mini-app-production.up.railway.app';
+const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp';
 const APP_URL = 'https://gloris-production.up.railway.app';
-const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo';
+const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo&promocode=VIP662';
 
 const bot = new Telegraf(BOT_TOKEN);
 const app = express();
@@ -87,15 +87,20 @@ app.get('/postback', async (req, res) => {
     return res.status(400).send('Missing user_id');
   }
 
-  // Обработка события регистрации
+  console.log(`Checking user existence for ${user_id}`);
+  ensureUserExists(user_id); // Убедимся, что пользователь существует
+
   if (event_id === 'registration') {
     console.log(`Processing registration for user ${user_id}`);
     try {
       const updated = updateUserRegistration(user_id);
       if (!updated) {
         console.warn(`User ${user_id} registration update failed`);
+      } else {
+        console.log(`User ${user_id} successfully marked as registered`);
       }
       const lang = getUserLanguage(user_id);
+      console.log(`Sending registration success message to user ${user_id} in language ${lang}`);
       await bot.telegram.sendPhoto(user_id, 'https://i.imgur.com/eABK5if.jpeg', {
         caption: getMessage('registration_success', lang),
         reply_markup: {
@@ -118,17 +123,20 @@ app.get('/postback', async (req, res) => {
     } catch (err) {
       console.error('Error processing registration:', err);
     }
-  } 
-  // Обработка события депозита
-  else if (event_id === 'deposit') {
+  } else if (event_id === 'deposit') {
     const depositAmount = parseFloat(amount);
     console.log(`Processing deposit for user ${user_id}: amount = ${depositAmount}`);
+    if (isNaN(depositAmount)) {
+      console.error(`Invalid deposit amount for user ${user_id}: ${amount}`);
+      return res.status(400).send('Invalid amount');
+    }
     if (depositAmount >= 10) {
       const stmt = db.prepare(`UPDATE users SET deposited = 1 WHERE user_id = ?`);
       const result = stmt.run(String(user_id));
       console.log(`User ${user_id} marked as deposited, changes: ${result.changes}`);
       if (result.changes > 0) {
         const lang = getUserLanguage(user_id);
+        console.log(`Sending game selection to user ${user_id} in language ${lang}`);
         bot.telegram.sendMessage(user_id, getMessage('select_game', lang), {
           reply_markup: {
             inline_keyboard: [
@@ -138,6 +146,8 @@ app.get('/postback', async (req, res) => {
             ]
           }
         }).catch(err => console.error('Error sending deposit message:', err));
+      } else {
+        console.warn(`No changes made for user ${user_id} during deposit update`);
       }
     } else {
       console.log(`Deposit amount ${depositAmount} for user ${user_id} is less than 10; no action taken`);
@@ -625,13 +635,23 @@ bot.on('callback_query', async (ctx) => {
   } else if (data === 'game_luckyjet') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
     const lang = getUserLanguage(chatId);
-    ctx.reply(getMessage('luckyjet_welcome', lang), {
+    ctx.replyWithPhoto('https://i.imgur.com/KF1GgYS.jpeg', {
+      caption: getMessage('luckyjet_welcome', lang),
       reply_markup: {
         inline_keyboard: [
           [{ text: getMessage('get_signal', lang), url: MINI_APP_URL }]
         ]
       }
-    }).catch(err => console.error('Error sending Lucky Jet message:', err));
+    }).catch(err => {
+      console.error('Error sending Lucky Jet message with photo:', err);
+      ctx.reply(getMessage('luckyjet_welcome', lang), {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: getMessage('get_signal', lang), url: MINI_APP_URL }]
+          ]
+        }
+      }).catch(fallbackErr => console.error('Error sending fallback Lucky Jet message:', fallbackErr));
+    });
   }
   ctx.answerCbQuery().catch(err => console.error('Error answering callback:', err));
 });
