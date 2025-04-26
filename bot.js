@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 // Настройки бота
 const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY'; // Вставьте ваш токен бота
-const CHANNEL_ID = 'xuiuug'; // ID вашего Telegram-канала
+const CHANNEL_ID = '/xuiuug'; // ID вашего Telegram-канала
 const MINI_APP_URL = 'https://your-mini-app-url'; // URL Mini App (замените после развертывания)
 const APP_URL = 'https://gloris-production.up.railway.app'; // URL сервера (для локального тестирования: http://localhost:3000)
 const POSTBACK_SECRET = 'your_1win_secret'; // Секретный ключ для постбэков
