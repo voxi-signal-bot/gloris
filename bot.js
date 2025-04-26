@@ -384,7 +384,7 @@ Bizim botumuz mərc qoymaq üçün optimal anı müəyyənləşdirməyə kömək
     get_signal: 'SIQNAL AL'
   },
   tr: {
-    welcome: 'Voxy_Soft'a hoş geldiniz! Botu kullanmak için kanalımıza abone olun 🤝',
+    welcome: 'Voxy_Soft\'a hoş geldiniz! Botu kullanmak için kanalımıza abone olun 🤝',
     subscribe_button: 'Kanala abone ol',
     check_subscription: 'Kontrol et',
     main_menu: 'Ana menü:',
