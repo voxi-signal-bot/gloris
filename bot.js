@@ -2,15 +2,13 @@ const { Telegraf, Markup } = require('telegraf');
 const express = require('express');
 const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
-const crypto = require('crypto');
 
 // Настройки бота
 const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY';
 const CHANNEL_ID = '@xuiuugg';
 const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp';
 const APP_URL = 'https://gloris-production.up.railway.app';
-const POSTBACK_SECRET = 'your_1win_secret';
-const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo';
+const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo&promocode=VIP662';
 
 const bot = new Telegraf(BOT_TOKEN);
 const app = express();
@@ -44,24 +42,24 @@ app.post('/webhook', async (req, res) => {
 
 // Обработка постбэков от 1win
 app.get('/postback', (req, res) => {
-  console.log('Received postback:', req.query);
-  const { event_id, sub1: user_id, amount, signature } = req.query;
+  console.log('Received postback from 1win:', req.query);
+  const { event_id, sub1: user_id, amount } = req.query;
 
+  // Проверка наличия user_id
   if (!user_id) {
     console.error('Missing user_id in postback');
     return res.status(400).send('Missing user_id');
   }
 
-  if (POSTBACK_SECRET && signature) {
-    if (!verifySignature(req.query, POSTBACK_SECRET)) {
-      console.error('Invalid signature in postback');
-      return res.status(403).send('Invalid signature');
-    }
-  }
-
+  // Обработка события регистрации
   if (event_id === 'registration') {
+    console.log(`Processing registration for user ${user_id}`);
     db.run(`UPDATE users SET registered = 1 WHERE user_id = ?`, [user_id], (err) => {
-      if (err) console.error('DB error on registration:', err);
+      if (err) {
+        console.error('DB error on registration:', err);
+      } else {
+        console.log(`User ${user_id} marked as registered`);
+      }
     });
     getUserLanguage(user_id).then(lang => {
       bot.telegram.sendMessage(user_id, getMessage('registration_success', lang), {
@@ -72,11 +70,18 @@ app.get('/postback', (req, res) => {
         }
       }).catch(err => console.error('Error sending registration message:', err));
     });
-  } else if (event_id === 'deposit') {
+  } 
+  // Обработка события депозита
+  else if (event_id === 'deposit') {
     const depositAmount = parseFloat(amount);
+    console.log(`Processing deposit for user ${user_id}: amount = ${depositAmount}`);
     if (depositAmount >= 10) {
       db.run(`UPDATE users SET deposited = 1 WHERE user_id = ?`, [user_id], (err) => {
-        if (err) console.error('DB error on deposit:', err);
+        if (err) {
+          console.error('DB error on deposit:', err);
+        } else {
+          console.log(`User ${user_id} marked as deposited`);
+        }
       });
       getUserLanguage(user_id).then(lang => {
         bot.telegram.sendMessage(user_id, getMessage('select_game', lang), {
@@ -89,22 +94,14 @@ app.get('/postback', (req, res) => {
           }
         }).catch(err => console.error('Error sending deposit message:', err));
       });
+    } else {
+      console.log(`Deposit amount ${depositAmount} for user ${user_id} is less than 10; no action taken`);
     }
+  } else {
+    console.log(`Unknown event_id: ${event_id} for user ${user_id}`);
   }
   res.sendStatus(200);
 });
-
-// Функция для проверки подписи постбэка
-function verifySignature(query, secret) {
-  const receivedSignature = query.signature;
-  const data = Object.keys(query)
-    .filter(k => k !== 'signature')
-    .sort()
-    .map(k => `${k}=${query[k]}`)
-    .join('&');
-  const computedSignature = crypto.createHmac('sha256', secret).update(data).digest('hex');
-  return receivedSignature === computedSignature;
-}
 
 // Получение языка пользователя
 function getUserLanguage(user_id) {
@@ -130,7 +127,7 @@ const messages = {
     select_language_button: '🌐Выбрать язык',
     help_button: '🆘Help',
     get_signal_button: '⚜️Получить сигнал⚜️',
-    registration_error: '⚠️ Ошибка: Регистрация не пройдена!\n\n✦ При регистрации обязательно вводите промокод - VIP662\n\n● После завершения регистраци, Вам автоматически придет уведомление в бота.',
+    registration_error: '⚠️ Ошибка: Регистрация не пройдена!\n\n✦ При регистрации обязательно вводите промокод - VIP662\n\n● После завершения регистрации, Вам автоматически придет уведомление в бота.',
     register_button: 'Зарегистрироваться',
     back_to_menu: 'Вернуться в главное меню',
     instruction: `🤖 Бот основан и обучен на кластерной нейронной сети OpenAI!
@@ -488,7 +485,6 @@ bot.on('callback_query', async (ctx) => {
       }
     }).catch(err => {
       console.error('Error sending registration error with photo:', err);
-      // Fallback: отправка без фото, если изображение не загрузилось
       ctx.reply(getMessage('registration_error', lang), {
         reply_markup: {
           inline_keyboard: [
@@ -639,7 +635,6 @@ async function sendMainMenu(ctx, lang) {
     }
   }).catch(err => {
     console.error('Error sending main menu with photo:', err);
-    // Fallback: отправка без фото, если изображение не загрузилось
     ctx.reply(getMessage('main_menu', lang), {
       reply_markup: {
         inline_keyboard: [
