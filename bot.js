@@ -5,11 +5,11 @@ const sqlite3 = require('sqlite3').verbose();
 const crypto = require('crypto');
 
 // Настройки бота
-const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY'; // Ваш токен бота
-const CHANNEL_ID = 'xuiuugg'; // Укажите имя публичного канала без @ (например, VoxiSignal для @VoxiSignal) или ID приватного канала (например, -1001234567890)
-const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp'; // URL Mini App для продакшена
-const APP_URL = 'https://gloris-production.up.railway.app'; // URL сервера
-const POSTBACK_SECRET = 'your_1win_secret'; // Секретный ключ для постбэков
+const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY';
+const CHANNEL_ID = '@xuiuugg'; // Исправлено для публичного канала
+const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp';
+const APP_URL = 'https://gloris-production.up.railway.app';
+const POSTBACK_SECRET = 'your_1win_secret';
 const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo&promocode=VIP662';
 
 const bot = new Telegraf(BOT_TOKEN);
@@ -21,7 +21,6 @@ db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS users (
     user_id TEXT PRIMARY KEY,
     language TEXT DEFAULT 'ru',
-    subscribed INTEGER DEFAULT 0,
     registered INTEGER DEFAULT 0,
     deposited INTEGER DEFAULT 0
   )`);
@@ -30,7 +29,7 @@ db.serialize(() => {
 // Middleware для обработки JSON и URL-encoded данных
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/miniapp', express.static('miniapp')); // Обслуживание Mini App
+app.use('/miniapp', express.static('miniapp'));
 
 // Webhook для Telegram
 app.post('/webhook', async (req, res) => {
@@ -107,7 +106,7 @@ function verifySignature(query, secret) {
   return receivedSignature === computedSignature;
 }
 
-// Получение языка пользователя с использованием промисов
+// Получение языка пользователя
 function getUserLanguage(user_id) {
   return new Promise((resolve) => {
     db.get(`SELECT language FROM users WHERE user_id = ?`, [user_id], (err, row) => {
@@ -123,9 +122,8 @@ function getUserLanguage(user_id) {
 // Сообщения на разных языках
 const messages = {
   ru: {
-    welcome: 'Добро пожаловать, Voxy_Soft! Для использования бота - подпишись на наш канал 🤝',
-    subscribe_button: 'Подписка на канал',
-    check_subscription: 'Проверить',
+    welcome: 'Добро пожаловать, Voxy_Soft! Для использования бота нажмите "Продолжить" 👇',
+    continue_button: 'Продолжить',
     main_menu: 'Главное меню:',
     registration_button: 'Регистрация',
     instruction_button: 'Инструкция',
@@ -161,9 +159,8 @@ LUCKY JET - это игра, в которой вы должны сделать 
     get_signal: 'ПОЛУЧИТЬ СИГНАЛ'
   },
   en: {
-    welcome: 'Welcome, Voxy_Soft! To use the bot, subscribe to our channel 🤝',
-    subscribe_button: 'Subscribe to channel',
-    check_subscription: 'Check',
+    welcome: 'Welcome, Voxy_Soft! To use the bot, click "Continue" 👇',
+    continue_button: 'Continue',
     main_menu: 'Main menu:',
     registration_button: 'Registration',
     instruction_button: 'Instruction',
@@ -199,9 +196,8 @@ Our bot can help determine the optimal moment to bet!`,
     get_signal: 'GET SIGNAL'
   },
   hi: {
-    welcome: 'वॉक्सी_सॉफ्ट में आपका स्वागत है! बॉट का उपयोग करने के लिए, हमारे चैनल की सदस्यता लें 🤝',
-    subscribe_button: 'चैनल की सदस्यता लें',
-    check_subscription: 'जाँच करें',
+    welcome: 'वॉक्सी_सॉफ्ट में आपका स्वागत है! बॉट का उपयोग करने के लिए "जारी रखें" पर क्लिक करें 👇',
+    continue_button: 'जारी रखें',
     main_menu: 'मुख्य मेनू:',
     registration_button: 'पंजीकरण',
     instruction_button: 'निर्देश',
@@ -237,9 +233,8 @@ LUCKY JET एक ऐसा गेम है जिसमें आपको र�
     get_signal: 'सिग्नल प्राप्त करें'
   },
   pt: {
-    welcome: 'Bem-vindo, Voxy_Soft! Para usar o bot, inscreva-se no nosso canal 🤝',
-    subscribe_button: 'Inscrever-se no canal',
-    check_subscription: 'Verificar',
+    welcome: 'Bem-vindo, Voxy_Soft! Para usar o bot, clique em "Continuar" 👇',
+    continue_button: 'Continuar',
     main_menu: 'Menu principal:',
     registration_button: 'Registro',
     instruction_button: 'Instruções',
@@ -275,9 +270,8 @@ Nosso bot pode ajudar a determinar o momento ideal para apostar!`,
     get_signal: 'OBTER SINAL'
   },
   es: {
-    welcome: '¡Bienvenido, Voxy_Soft! Para usar el bot, suscríbete a nuestro canal 🤝',
-    subscribe_button: 'Suscribirse al canal',
-    check_subscription: 'Verificar',
+    welcome: '¡Bienvenido, Voxy_Soft! Para usar el bot, haz clic en "Continuar" 👇',
+    continue_button: 'Continuar',
     main_menu: 'Menú principal:',
     registration_button: 'Registro',
     instruction_button: 'Instrucciones',
@@ -313,9 +307,8 @@ Cuanto más esperes, más puedes ganar, pero si el cohete despega antes de que r
     get_signal: 'OBTENER SEÑAL'
   },
   uz: {
-    welcome: 'Voxy_Softga xush kelibsiz! Botdan foydalanish uchun kanalimizga obuna bo‘ling 🤝',
-    subscribe_button: 'Kanalga obuna bo‘lish',
-    check_subscription: 'Tekshirish',
+    welcome: 'Voxy_Softga xush kelibsiz! Botdan foydalanish uchun "Davom etish" tugmasini bosing 👇',
+    continue_button: 'Davom etish',
     main_menu: 'Asosiy menyu:',
     registration_button: 'Ro‘yxatdan o‘tish',
     instruction_button: 'Yo‘riqnoma',
@@ -351,9 +344,8 @@ Bizning botimiz stavka qo‘yish uchun eng maqbul vaqtni aniqlashga yordam berad
     get_signal: 'SIGNAL OLISH'
   },
   az: {
-    welcome: 'Voxy_Soft-a xoş gəlmisiniz! Botdan istifadə etmək üçün kanalımıza abunə olun 🤝',
-    subscribe_button: 'Kanala abunə ol',
-    check_subscription: 'Yoxla',
+    welcome: 'Voxy_Soft-a xoş gəlmisiniz! Botdan istifadə etmək üçün "Davam et" düyməsini basın 👇',
+    continue_button: 'Davam et',
     main_menu: 'Əsas menyu:',
     registration_button: 'Qeydiyyat',
     instruction_button: 'Təlimat',
@@ -389,9 +381,8 @@ Bizim botumuz mərc qoymaq üçün optimal anı müəyyənləşdirməyə kömək
     get_signal: 'SIQNAL AL'
   },
   tr: {
-    welcome: "Voxy_Soft'a hoş geldiniz! Botu kullanmak için kanalımıza abone olun 🤝",
-    subscribe_button: 'Kanala abone ol',
-    check_subscription: 'Kontrol et',
+    welcome: "Voxy_Soft'a hoş geldiniz! Botu kullanmak için 'Devam Et' butonuna tıklayın 👇",
+    continue_button: 'Devam Et',
     main_menu: 'Ana menü:',
     registration_button: 'Kayıt',
     instruction_button: 'Talimatlar',
@@ -433,25 +424,6 @@ function getMessage(key, lang, user_id = '') {
   let message = messages[lang]?.[key] || messages.ru[key];
   if (user_id) message = message.replace('{user_id}', user_id);
   return message;
-}
-
-// Проверка подписки с логированием
-async function checkSubscription(ctx) {
-  const userId = ctx.chat.id.toString();
-  console.log(`Checking subscription for user ${userId} in channel ${CHANNEL_ID}`);
-  try {
-    const chatMember = await ctx.telegram.getChatMember(CHANNEL_ID, userId);
-    console.log(`Chat member status: ${chatMember.status}`);
-    return ['member', 'administrator', 'creator'].includes(chatMember.status);
-  } catch (err) {
-    console.error('Error checking subscription:', err);
-    if (err.response?.error_code === 400 && err.response?.description.includes('chat not found')) {
-      ctx.reply('Ошибка: канал не найден. Пожалуйста, проверьте CHANNEL_ID.');
-    } else if (err.response?.error_code === 403) {
-      ctx.reply('Ошибка: бот не имеет прав администратора в канале.');
-    }
-    return false;
-  }
 }
 
 // Команда /start
@@ -496,32 +468,10 @@ bot.on('callback_query', async (ctx) => {
     });
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
     await sendWelcomeMessage(ctx, lang);
-  } else if (data === 'check_subscription') {
-    db.get(`SELECT subscribed FROM users WHERE user_id = ?`, [chatId], async (err, row) => {
-      if (err) {
-        console.error('DB error on subscription check:', err);
-        return ctx.reply('Ошибка базы данных. Попробуйте позже.');
-      }
-      if (row.subscribed) {
-        console.log(`User ${chatId} already subscribed, sending main menu`);
-        await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-        await sendMainMenu(ctx, await getUserLanguage(chatId));
-      } else {
-        const isSubscribed = await checkSubscription(ctx);
-        if (isSubscribed) {
-          db.run(`UPDATE users SET subscribed = 1 WHERE user_id = ?`, [chatId], (err) => {
-            if (err) console.error('DB error on subscription update:', err);
-          });
-          console.log(`User ${chatId} subscribed, sending main menu`);
-          await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-          await sendMainMenu(ctx, await getUserLanguage(chatId));
-        } else {
-          console.log(`User ${chatId} not subscribed`);
-          ctx.answerCbQuery('Пожалуйста, подпишитесь на канал! / Please subscribe to the channel!', true)
-            .catch(err => console.error('Error answering callback:', err));
-        }
-      }
-    });
+  } else if (data === 'continue') {
+    console.log(`User ${chatId} clicked Continue, sending main menu`);
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    await sendMainMenu(ctx, await getUserLanguage(chatId));
   } else if (data === 'main_menu') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
     await sendMainMenu(ctx, await getUserLanguage(chatId));
@@ -635,25 +585,13 @@ bot.on('callback_query', async (ctx) => {
 async function sendWelcomeMessage(ctx, lang) {
   const chatId = ctx.chat.id;
   console.log(`Sending welcome message to user ${chatId} with language ${lang}`);
-  db.get(`SELECT subscribed FROM users WHERE user_id = ?`, [chatId], async (err, row) => {
-    if (err) {
-      console.error('DB error on subscription check:', err);
-      return ctx.reply('Ошибка базы данных. Попробуйте позже.');
+  ctx.reply(getMessage('welcome', lang), {
+    reply_markup: {
+      inline_keyboard: [
+        [{ text: getMessage('continue_button', lang), callback_data: 'continue' }]
+      ]
     }
-    if (row?.subscribed) {
-      console.log(`User ${chatId} already subscribed, sending main menu`);
-      await sendMainMenu(ctx, lang);
-    } else {
-      ctx.reply(getMessage('welcome', lang), {
-        reply_markup: {
-          inline_keyboard: [
-            [{ text: getMessage('subscribe_button', lang), url: `https://t.me/${CHANNEL_ID}` }],
-            [{ text: getMessage('check_subscription', lang), callback_data: 'check_subscription' }]
-          ]
-        }
-      }).catch(err => console.error('Error sending welcome message:', err));
-    }
-  });
+  }).catch(err => console.error('Error sending welcome message:', err));
 }
 
 // Главное меню
@@ -684,13 +622,11 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   const isProduction = process.env.NODE_ENV === 'production';
   if (isProduction) {
-    // Настройка вебхука для продакшена
     bot.telegram.setWebhook(`${APP_URL}/webhook`).then(() => {
       console.log(`Webhook set to ${APP_URL}/webhook`);
     }).catch(err => console.error('Error setting webhook:', err));
     app.use(bot.webhookCallback('/webhook'));
   } else {
-    // Polling для локального тестирования
     bot.launch().then(() => {
       console.log('Bot started in polling mode');
     }).catch(err => console.error('Error starting bot:', err));
