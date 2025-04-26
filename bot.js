@@ -8,7 +8,7 @@ const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY';
 const CHANNEL_ID = '@xuiuugg';
 const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp';
 const APP_URL = 'https://gloris-production.up.railway.app';
-const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo&promocode=VIP662';
+const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo';
 
 const bot = new Telegraf(BOT_TOKEN);
 const app = express();
