@@ -7,8 +7,8 @@ const crypto = require('crypto');
 // Настройки бота
 const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY'; // Ваш токен бота
 const CHANNEL_ID = 'xuiuugg'; // Укажите имя публичного канала без @ (например, VoxiSignal для @VoxiSignal) или ID приватного канала (например, -1001234567890)
-const MINI_APP_URL = 'http://localhost:3000/miniapp'; // Для локального тестирования; замените на продакшен-URL после развертывания
-const APP_URL = 'https://gloris-production.up.railway.app'; // URL сервера (для локального тестирования: http://localhost:3000)
+const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp'; // URL Mini App для продакшена
+const APP_URL = 'https://gloris-production.up.railway.app'; // URL сервера
 const POSTBACK_SECRET = 'your_1win_secret'; // Секретный ключ для постбэков
 const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo&promocode=VIP662';
 
@@ -437,7 +437,7 @@ function getMessage(key, lang, user_id = '') {
 
 // Проверка подписки с логированием
 async function checkSubscription(ctx) {
-  const userId = lowering.toString();
+  const userId = ctx.chat.id.toString();
   console.log(`Checking subscription for user ${userId} in channel ${CHANNEL_ID}`);
   try {
     const chatMember = await ctx.telegram.getChatMember(CHANNEL_ID, userId);
@@ -679,7 +679,7 @@ bot.catch((err, ctx) => {
 });
 
 // Запуск сервера
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   const isProduction = process.env.NODE_ENV === 'production';
