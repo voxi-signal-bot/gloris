@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 // Настройки бота
 const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY'; // Ваш токен бота
-const CHANNEL_ID = 'xuiuugg'; // Укажите имя публичного канала без @ (например, VoxiSignal для @VoxiSignal) или ID приватного канала (например, -1001234567890)
+const CHANNEL_ID = '-1002604241438'; // Укажите имя публичного канала без @ (например, VoxiSignal для @VoxiSignal) или ID приватного канала (например, -1001234567890)
 const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp'; // URL Mini App для продакшена
 const APP_URL = 'https://gloris-production.up.railway.app'; // URL сервера
 const POSTBACK_SECRET = 'your_1win_secret'; // Секретный ключ для постбэков
