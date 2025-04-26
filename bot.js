@@ -125,7 +125,7 @@ const messages = {
     welcome: 'Добро пожаловать, Voxy_Soft! Для использования бота нажмите "Продолжить" 👇',
     continue_button: 'Продолжить',
     main_menu: 'Главное меню:',
-    registration_button: 'Регистрация',
+    registration_button: '📱Регистрация',
     instruction_button: 'Инструкция',
     select_language_button: 'Выбрать язык',
     help_button: 'Help',
