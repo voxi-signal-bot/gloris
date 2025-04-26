@@ -125,11 +125,11 @@ const messages = {
     welcome: 'Добро пожаловать, Voxy_Soft! Для использования бота нажмите "Продолжить" 👇',
     continue_button: 'Продолжить',
     main_menu: 'Главное меню:',
-    registration_button: '📱Регистрация',
-    instruction_button: '📚Инструкция',
-    select_language_button: '🌐Выбрать язык',
-    help_button: '🆘Help',
-    get_signal_button: '⚜️Получить сигнал⚜️',
+    registration_button: 'Регистрация',
+    instruction_button: 'Инструкция',
+    select_language_button: 'Выбрать язык',
+    help_button: 'Help',
+    get_signal_button: 'Получить сигнал',
     registration_error: '⚠️ Ошибка: Регистрация не пройдена! ✦ При регистрации обязательно вводите промокод - VIP662 ● После завершения регистрации, Вам автоматически придет уведомление в бота.',
     register_button: 'Зарегистрироваться',
     back_to_menu: 'Вернуться в главное меню',
@@ -481,7 +481,7 @@ bot.on('callback_query', async (ctx) => {
     ctx.reply(getMessage('registration_error', lang), {
       reply_markup: {
         inline_keyboard: [
-          [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+          [{ text: 'Зарегистрироваться', url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
           [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
         ]
       }
@@ -594,18 +594,24 @@ async function sendWelcomeMessage(ctx, lang) {
   }).catch(err => console.error('Error sending welcome message:', err));
 }
 
-// Главное меню с фотографией
+// Главное меню с фотографией и кнопками в два столбца
 async function sendMainMenu(ctx, lang) {
   console.log(`Sending main menu to user ${ctx.chat.id} with language ${lang}`);
   ctx.replyWithPhoto('https://i.imgur.com/x8J6K8l.png', {
     caption: getMessage('main_menu', lang),
     reply_markup: {
       inline_keyboard: [
-        [{ text: getMessage('registration_button', lang), callback_data: 'registration' }],
-        [{ text: getMessage('instruction_button', lang), callback_data: 'instruction' }],
-        [{ text: getMessage('select_language_button', lang), callback_data: 'select_language' }],
-        [{ text: getMessage('help_button', lang), callback_data: 'help' }],
-        [{ text: getMessage('get_signal_button', lang), callback_data: 'get_signal' }]
+        [
+          { text: getMessage('registration_button', lang), callback_data: 'registration' },
+          { text: getMessage('instruction_button', lang), callback_data: 'instruction' }
+        ],
+        [
+          { text: getMessage('select_language_button', lang), callback_data: 'select_language' },
+          { text: getMessage('help_button', lang), callback_data: 'help' }
+        ],
+        [
+          { text: getMessage('get_signal_button', lang), callback_data: 'get_signal' }
+        ]
       ]
     }
   }).catch(err => {
@@ -614,11 +620,17 @@ async function sendMainMenu(ctx, lang) {
     ctx.reply(getMessage('main_menu', lang), {
       reply_markup: {
         inline_keyboard: [
-          [{ text: getMessage('registration_button', lang), callback_data: 'registration' }],
-          [{ text: getMessage('instruction_button', lang), callback_data: 'instruction' }],
-          [{ text: getMessage('select_language_button', lang), callback_data: 'select_language' }],
-          [{ text: getMessage('help_button', lang), callback_data: 'help' }],
-          [{ text: getMessage('get_signal_button', lang), callback_data: 'get_signal' }]
+          [
+            { text: getMessage('registration_button', lang), callback_data: 'registration' },
+            { text: getMessage('instruction_button', lang), callback_data: 'instruction' }
+          ],
+          [
+            { text: getMessage('select_language_button', lang), callback_data: 'select_language' },
+            { text: getMessage('help_button', lang), callback_data: 'help' }
+          ],
+          [
+            { text: getMessage('get_signal_button', lang), callback_data: 'get_signal' }
+          ]
         ]
       }
     }).catch(fallbackErr => console.error('Error sending fallback main menu:', fallbackErr));
