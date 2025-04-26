@@ -38,8 +38,22 @@ app.post('/webhook', async (req, res) => {
   }
 });
 
+// Проверка и создание пользователя, если он отсутствует
+function ensureUserExists(user_id) {
+  user_id = String(user_id); // Приводим к строке
+  const stmt = db.prepare(`SELECT * FROM users WHERE user_id = ?`);
+  const row = stmt.get(user_id);
+  if (!row) {
+    const insertStmt = db.prepare(`INSERT INTO users (user_id, language) VALUES (?, 'ru')`);
+    insertStmt.run(user_id);
+    console.log(`User ${user_id} created in database`);
+  }
+  return user_id;
+}
+
 // Обновление базы данных (синхронно)
 function updateUserRegistration(user_id) {
+  user_id = ensureUserExists(user_id); // Проверяем и создаём пользователя, если он отсутствует
   const stmt = db.prepare(`UPDATE users SET registered = 1 WHERE user_id = ?`);
   const result = stmt.run(user_id);
   console.log(`User ${user_id} marked as registered, changes: ${result.changes}`);
@@ -48,6 +62,7 @@ function updateUserRegistration(user_id) {
 
 // Проверка статуса пользователя (синхронно)
 function checkUserStatus(user_id) {
+  user_id = String(user_id); // Приводим к строке
   const stmt = db.prepare(`SELECT * FROM users WHERE user_id = ?`);
   const row = stmt.get(user_id);
   return row;
@@ -55,6 +70,7 @@ function checkUserStatus(user_id) {
 
 // Получение языка пользователя (синхронно)
 function getUserLanguage(user_id) {
+  user_id = String(user_id); // Приводим к строке
   const stmt = db.prepare(`SELECT language FROM users WHERE user_id = ?`);
   const row = stmt.get(user_id);
   return row?.language || 'ru';
@@ -77,7 +93,7 @@ app.get('/postback', async (req, res) => {
     try {
       const updated = updateUserRegistration(user_id);
       if (!updated) {
-        console.warn(`User ${user_id} not found in database for registration`);
+        console.warn(`User ${user_id} registration update failed`);
       }
       const lang = getUserLanguage(user_id);
       await bot.telegram.sendPhoto(user_id, 'https://i.imgur.com/eABK5if.jpeg', {
@@ -109,7 +125,7 @@ app.get('/postback', async (req, res) => {
     console.log(`Processing deposit for user ${user_id}: amount = ${depositAmount}`);
     if (depositAmount >= 10) {
       const stmt = db.prepare(`UPDATE users SET deposited = 1 WHERE user_id = ?`);
-      const result = stmt.run(user_id);
+      const result = stmt.run(String(user_id));
       console.log(`User ${user_id} marked as deposited, changes: ${result.changes}`);
       if (result.changes > 0) {
         const lang = getUserLanguage(user_id);
@@ -441,12 +457,11 @@ function getMessage(key, lang, user_id = '') {
 
 // Команда /start
 bot.start(async (ctx) => {
-  const chatId = ctx.chat.id;
+  const chatId = String(ctx.chat.id); // Приводим к строке
   console.log(`Processing /start for user ${chatId}`);
   const row = checkUserStatus(chatId);
   if (!row) {
-    const stmt = db.prepare(`INSERT INTO users (user_id, language) VALUES (?, 'ru')`);
-    stmt.run(chatId);
+    ensureUserExists(chatId); // Создаём пользователя
     ctx.reply('Выберите язык / Select language:', {
       reply_markup: {
         inline_keyboard: [
@@ -464,7 +479,7 @@ bot.start(async (ctx) => {
 
 // Обработка callback-запросов
 bot.on('callback_query', async (ctx) => {
-  const chatId = ctx.chat.id;
+  const chatId = String(ctx.chat.id); // Приводим к строке
   const data = ctx.callbackQuery.data;
   console.log(`Received callback query: ${data} from user ${chatId}`);
 
@@ -623,7 +638,7 @@ bot.on('callback_query', async (ctx) => {
 
 // Приветственное сообщение
 async function sendWelcomeMessage(ctx, lang) {
-  const chatId = ctx.chat.id;
+  const chatId = String(ctx.chat.id); // Приводим к строке
   console.log(`Sending welcome message to user ${chatId} with language ${lang}`);
   ctx.reply(getMessage('welcome', lang), {
     reply_markup: {
@@ -636,7 +651,8 @@ async function sendWelcomeMessage(ctx, lang) {
 
 // Главное меню с фотографией и кнопками в два столбца
 async function sendMainMenu(ctx, lang) {
-  console.log(`Sending main menu to user ${ctx.chat.id} with language ${lang}`);
+  const chatId = String(ctx.chat.id); // Приводим к строке
+  console.log(`Sending main menu to user ${chatId} with language ${lang}`);
   ctx.replyWithPhoto('https://i.imgur.com/x8J6K8l.png', {
     caption: getMessage('main_menu', lang),
     reply_markup: {
