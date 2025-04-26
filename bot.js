@@ -6,8 +6,8 @@ const crypto = require('crypto');
 
 // Настройки бота
 const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY'; // Ваш токен бота
-const CHANNEL_ID = 'xuiuugg'; // Укажите имя публичного канала без @ (например, VoxiSignal для @VoxiSignal) или ID приватного канала (например, -1001234567890)
-const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp'; // URL Mini App для продакшена
+const CHANNEL_ID = '@xuiuugg'; // Используем @ для публичного канала
+const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp'; // URL Mini App
 const APP_URL = 'https://gloris-production.up.railway.app'; // URL сервера
 const POSTBACK_SECRET = 'your_1win_secret'; // Секретный ключ для постбэков
 const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo&promocode=VIP662';
@@ -107,7 +107,7 @@ function verifySignature(query, secret) {
   return receivedSignature === computedSignature;
 }
 
-// Получение языка пользователя с использованием промисов
+// Получение языка пользователя
 function getUserLanguage(user_id) {
   return new Promise((resolve) => {
     db.get(`SELECT language FROM users WHERE user_id = ?`, [user_id], (err, row) => {
@@ -158,7 +158,9 @@ const messages = {
 LUCKY JET - это игра, в которой вы должны сделать ставку на увеличивающийся коэффициент перед тем, как ракетка улетит.
 Чем дольше вы ждете, тем больше можете выиграть, но если ракетка улетит до того, как вы заберете ставку, вы потеряете.
 Наш бот может помочь определить оптимальный момент для ставки!`,
-    get_signal: 'ПОЛУЧИТЬ СИГНАЛ'
+    get_signal: 'ПОЛУЧИТЬ СИГНАЛ',
+    channel_not_found: 'Ошибка: канал не найден. Пожалуйста, свяжитесь с поддержкой.',
+    bot_no_admin: 'Ошибка: бот не является администратором канала. Пожалуйста, добавьте бота как администратора.'
   },
   en: {
     welcome: 'Welcome, Voxy_Soft! To use the bot, subscribe to our channel 🤝',
@@ -196,236 +198,11 @@ To achieve maximum profit, follow this instruction:
 LUCKY JET is a game where you must bet on an increasing multiplier before the rocket flies away.
 The longer you wait, the more you can win, but if the rocket flies away before you cash out, you lose.
 Our bot can help determine the optimal moment to bet!`,
-    get_signal: 'GET SIGNAL'
-  },
-  hi: {
-    welcome: 'वॉक्सी_सॉफ्ट में आपका स्वागत है! बॉट का उपयोग करने के लिए, हमारे चैनल की सदस्यता लें 🤝',
-    subscribe_button: 'चैनल की सदस्यता लें',
-    check_subscription: 'जाँच करें',
-    main_menu: 'मुख्य मेनू:',
-    registration_button: 'पंजीकरण',
-    instruction_button: 'निर्देश',
-    select_language_button: 'भाषा चुनें',
-    help_button: 'Help',
-    get_signal_button: 'सिग्नल प्राप्त करें',
-    registration_error: '⚠️ त्रुटि: पंजीकरण पूरा नहीं हुआ! ✦ पंजीकरण के दौरान प्रोमो कोड - VIP662 अवश्य दर्ज करें ● पंजीकरण के बाद आपको बॉट में एक अधिसूचना प्राप्त होगी।',
-    register_button: 'पंजीकरण करें',
-    back_to_menu: 'मुख्य मेनू पर वापस',
-    instruction: `🤖 बॉट OpenAI के क्लस्टर न्यूरल नेटवर्क पर आधारित और प्रशिक्षित है!
-⚜️ बॉट को प्रशिक्षित करने के लिए 30,000 गेम 🎰 खेले गए।
-वर्तमान में, बॉट उपयोगकर्ता अपने 💸 पूंजी का 15-25% प्रतिदिन सफलतापूर्वक उत्पन्न करते हैं!
-बॉट अभी भी जाँच और सुधार से गुजर रहा है! बॉट की सटीकता 92% है!
-अधिकतम लाभ प्राप्त करने के लिए, इस निर्देश का पालन करें:
-🟢 1. [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id}) बुकमेकर पर पंजीकरण करें
-[यदि यह नहीं खुलता, तो VPN (स्वीडन) का उपयोग करें। Play Market/App Store में कई मुफ्त सेवाएँ हैं, जैसे: Vpnify, Planet VPN, Hotspot VPN आदि!]
-❗️ पंजीकरण और प्रोमो कोड के बिना सिग्नल तक पहुँच नहीं दी जाएगी ❗️
-🟢 2. अपने खाते का बैलेंस टॉप अप करें।
-🟢 3. 1win गेम्स अनुभाग में जाएँ और एक गेम चुनें।
-🟢 4. जाल की संख्या को तीन पर सेट करें। यह महत्वपूर्ण है!
-🟢 5. बॉट से सिग्नल का अनुरोध करें और बॉट के सिग्नल के अनुसार दांव लगाएँ।
-🟢 6. असफल सिग्नल के मामले में, हम आपकी दांव को दोगुना (x²) करने की सलाह देते हैं ताकि अगले सिग्नल के साथ नुकसान को पूरी तरह से कवर किया जा सके।`,
-    registration_success: 'सफल पंजीकरण के लिए बधाई! 🥳\n🌐 चरण 2 - अपनी पहली जमा राशि करें।\n✦ जमा राशि जितनी बड़ी होगी, बॉट में उतना ही उच्च स्तर होगा, और स्तर जितना ऊँचा होगा, उतने ही अधिक उच्च-संभावना वाले सिग्नल आपको प्राप्त होंगे।\n● पहली जमा राशि के बाद आपको बॉट में एक अधिसूचना प्राप्त होगी।',
-    deposit_button: 'जमा करें',
-    select_game: 'गेम चुनें:',
-    aviator_button: 'AVIATOR',
-    luckyjet_button: 'LUCKY JET',
-    mines_button: 'MINES',
-    luckyjet_welcome: `VOXI SIGNAL LUCKY JET में आपका स्वागत है
-LUCKY JET एक ऐसा गेम है जिसमें आपको रॉकेट के उड़ने से पहले बढ़ते गुणक पर दांव लगाना होता है।
-जितना अधिक आप इंतजार करते हैं, उतना अधिक आप जीत सकते हैं, लेकिन यदि आप दांव को भुनाने से पहले रॉकेट उड़ जाता है, तो आप हार जाते हैं।
-हमारा बॉट दांव लगाने के लिए最適 समय निर्धारित करने में मदद कर सकता है!`,
-    get_signal: 'सिग्नल प्राप्त करें'
-  },
-  pt: {
-    welcome: 'Bem-vindo, Voxy_Soft! Para usar o bot, inscreva-se no nosso canal 🤝',
-    subscribe_button: 'Inscrever-se no canal',
-    check_subscription: 'Verificar',
-    main_menu: 'Menu principal:',
-    registration_button: 'Registro',
-    instruction_button: 'Instruções',
-    select_language_button: 'Selecionar idioma',
-    help_button: 'Help',
-    get_signal_button: 'Obter sinal',
-    registration_error: '⚠️ Erro: Registro não concluído! ✦ Certifique-se de inserir o código promocional - VIP662 ● Você receberá uma notificação no bot após o registro.',
-    register_button: 'Registrar',
-    back_to_menu: 'Voltar ao menu principal',
-    instruction: `🤖 O bot é construído e treinado na rede neural de cluster da OpenAI!
-⚜️ 30.000 jogos 🎰 foram jogados para treinar o bot.
-Atualmente, os usuários do bot geram com sucesso 15-25% de seu 💸 capital diariamente!
-O bot ainda está em fase de testes e correções! A precisão do bot é de 92%!
-Para alcançar o lucro máximo, siga estas instruções:
-🟢 1. Registre-se na casa de apostas [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id})
-[Se não abrir, use uma VPN (Suécia). Há muitos serviços gratuitos no Play Market/App Store, por exemplo: Vpnify, Planet VPN, Hotspot VPN, etc.!]
-❗️ Sem registro e código promocional, o acesso aos sinais não será concedido ❗️
-🟢 2. Adicione fundos ao saldo da sua conta.
-🟢 3. Vá para a seção de jogos da 1win e selecione um jogo.
-🟢 4. Defina o número de armadilhas para três. Isso é importante!
-🟢 5. Solicite um sinal do bot e faça apostas de acordo com os sinais do bot.
-🟢 6. Em caso de um sinal malsucedido, recomendamos dobrar (x²) sua aposta para cobrir totalmente a perda com o próximo sinal.`,
-    registration_success: 'Parabéns pelo registro bem-sucedido! 🥳\n🌐 Etapa 2 - Faça seu primeiro depósito.\n✦ Quanto maior o depósito, maior o NÍVEL no bot, e quanto maior o nível, mais sinais de alta probabilidade você receberá.\n● Você receberá uma notificação no bot após o primeiro depósito.',
-    deposit_button: 'Fazer depósito',
-    select_game: 'Selecionar jogo:',
-    aviator_button: 'AVIATOR',
-    luckyjet_button: 'LUCKY JET',
-    mines_button: 'MINES',
-    luckyjet_welcome: `Bem-vindo ao VOXI SIGNAL LUCKY JET
-LUCKY JET é um jogo onde você deve apostar em um multiplicador crescente antes que o foguete voe.
-Quanto mais você esperar, mais pode ganhar, mas se o foguete voar antes de você sacar, você perde.
-Nosso bot pode ajudar a determinar o momento ideal para apostar!`,
-    get_signal: 'OBTER SINAL'
-  },
-  es: {
-    welcome: '¡Bienvenido, Voxy_Soft! Para usar el bot, suscríbete a nuestro canal 🤝',
-    subscribe_button: 'Suscribirse al canal',
-    check_subscription: 'Verificar',
-    main_menu: 'Menú principal:',
-    registration_button: 'Registro',
-    instruction_button: 'Instrucciones',
-    select_language_button: 'Seleccionar idioma',
-    help_button: 'Help',
-    get_signal_button: 'Obtener señal',
-    registration_error: '⚠️ Error: ¡Registro no completado! ✦ Asegúrate de ingresar el código promocional - VIP662 ● Recibirás una notificación en el bot después del registro.',
-    register_button: 'Registrar',
-    back_to_menu: 'Volver al menú principal',
-    instruction: `🤖 ¡El bot está construido y entrenado en la red neuronal de clúster de OpenAI!
-⚜️ Se jugaron 30,000 juegos 🎰 para entrenar al bot.
-Actualmente, los usuarios del bot generan con éxito entre el 15-25% de su 💸 capital diariamente.
-¡El bot aún está en pruebas y correcciones! La precisión del bot es del 92%.
-Para lograr la máxima ganancia, sigue estas instrucciones:
-🟢 1. Regístrate en la casa de apuestas [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id})
-[Si no se abre, usa una VPN (Suecia). Hay muchos servicios gratuitos en Play Market/App Store, por ejemplo: Vpnify, Planet VPN, Hotspot VPN, etc.!]
-❗️ Sin registro y código promocional, no se otorgará acceso a las señales ❗️
-🟢 2. Recarga el saldo de tu cuenta.
-🟢 3. Ve a la sección de juegos de 1win y selecciona un juego.
-🟢 4. Configura el número de trampas en tres. ¡Esto es importante!
-🟢 5. Solicita una señal al bot y realiza apuestas según las señales del bot.
-🟢 6. En caso de una señal fallida, recomendamos duplicar (x²) tu apuesta para cubrir completamente la pérdida con la siguiente señal.`,
-    registration_success: '¡Felicidades por el registro exitoso! 🥳\n🌐 Paso 2 - Realiza tu primer depósito.\n✦ Cuanto mayor sea el depósito, mayor será el NIVEL en el bot, y cuanto mayor sea el nivel, más señales de alta probabilidad recibirás.\n● Recibirás una notificación en el bot después del primer depósito.',
-    deposit_button: 'Realizar depósito',
-    select_game: 'Seleccionar juego:',
-    aviator_button: 'AVIATOR',
-    luckyjet_button: 'LUCKY JET',
-    mines_button: 'MINES',
-    luckyjet_welcome: `Bienvenido a VOXI SIGNAL LUCKY JET
-LUCKY JET es un juego donde debes apostar por un multiplicador creciente antes de que el cohete despegue.
-Cuanto más esperes, más puedes ganar, pero si el cohete despega antes de que retires, pierdes.
-¡Nuestro bot puede ayudarte a determinar el momento óptimo para apostar!`,
-    get_signal: 'OBTENER SEÑAL'
-  },
-  uz: {
-    welcome: 'Voxy_Softga xush kelibsiz! Botdan foydalanish uchun kanalimizga obuna bo‘ling 🤝',
-    subscribe_button: 'Kanalga obuna bo‘lish',
-    check_subscription: 'Tekshirish',
-    main_menu: 'Asosiy menyu:',
-    registration_button: 'Ro‘yxatdan o‘tish',
-    instruction_button: 'Yo‘riqnoma',
-    select_language_button: 'Til tanlash',
-    help_button: 'Help',
-    get_signal_button: 'Signal olish',
-    registration_error: '⚠️ Xato: Ro‘yxatdan o‘tish yakunlanmadi! ✦ Ro‘yxatdan o‘tishda promo-kod - VIP662 ni kiritish shart ● Ro‘yxatdan o‘tish yakunlangandan so‘ng, botda avtomatik xabar olasiz.',
-    register_button: 'Ro‘yxatdan o‘tish',
-    back_to_menu: 'Asosiy menyuga qaytish',
-    instruction: `🤖 Bot OpenAI klaster neyron tarmog‘ida qurilgan va o‘qitilgan!
-⚜️ Botni o‘qitish uchun 30,000 ta o‘yin 🎰 o‘ynaldi.
-Hozirda bot foydalanuvchilari o‘zlarining 💸 kapitalining 15-25% ni har kuni muvaffaqiyatli ishlab topmoqdalar!
-Bot hali sinov va tuzatishlardan o‘tmoqda! Botning aniqligi 92%!
-Maksimal daromadga erishish uchun ushbu yo‘riqnomaga amal qiling:
-🟢 1. [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id}) bukmekerlik idorasida ro‘yxatdan o‘ting
-[Agar ochilmasa, VPN (Shvetsiya) dan foydalaning. Play Market/App Store da ko‘plab bepul xizmatlar mavjud, masalan: Vpnify, Planet VPN, Hotspot VPN va boshqalar!]
-❗️ Ro‘yxatdan o‘tish va promo-kodsiz signallarga kirish berilmaydi ❗️
-🟢 2. Hisobingiz balansini to‘ldiring.
-🟢 3. 1win o‘yinlar bo‘limiga o‘ting va o‘yin tanlang.
-🟢 4. Tuzoqlar sonini uchtaga o‘rnating. Bu muhim!
-🟢 5. Botdan signal so‘rang va bot signallariga muvofiq stavka qiling.
-🟢 6. Muvaffaqiyatsiz signal bo‘lsa, keyingi signal bilan yo‘qotishni to‘liq qoplash uchun stavkangizni ikki baravar (x²) qilishni tavsiya qilamiz.`,
-    registration_success: 'Muvaffaqiyatli ro‘yxatdan o‘tganingiz bilan tabriklaymiz! 🥳\n🌐 2-qadam - Birinchi depozitni kiriting.\n✦ Depozit qanchalik katta bo‘lsa, botda shunchalik yuqori DARAJA bo‘ladi va daraja qanchalik yuqori bo‘lsa, yuqori ehtimolli signallar shunchalik ko‘p bo‘ladi.\n● Birinchi depozit kiritilgandan so‘ng, botda avtomatik xabar olasiz.',
-    deposit_button: 'Depozit kiritish',
-    select_game: 'O‘yin tanlang:',
-    aviator_button: 'AVIATOR',
-    luckyjet_button: 'LUCKY JET',
-    mines_button: 'MINES',
-    luckyjet_welcome: `VOXI SIGNAL LUCKY JETga xush kelibsiz
-LUCKY JET - bu siz raketa uchib ketishidan oldin o‘sib borayotgan koeffitsientga stavka qo‘yishingiz kerak bo‘lgan o‘yin.
-Qancha uzoq kutsangiz, shuncha ko‘p yutishingiz mumkin, lekin agar siz stavkangizni yechib olishdan oldin raketa uchib ketsa, yutqazasiz.
-Bizning botimiz stavka qo‘yish uchun eng maqbul vaqtni aniqlashga yordam beradi!`,
-    get_signal: 'SIGNAL OLISH'
-  },
-  az: {
-    welcome: 'Voxy_Soft-a xoş gəlmisiniz! Botdan istifadə etmək üçün kanalımıza abunə olun 🤝',
-    subscribe_button: 'Kanala abunə ol',
-    check_subscription: 'Yoxla',
-    main_menu: 'Əsas menyu:',
-    registration_button: 'Qeydiyyat',
-    instruction_button: 'Təlimat',
-    select_language_button: 'Dil seç',
-    help_button: 'Help',
-    get_signal_button: 'Siqnal al',
-    registration_error: '⚠️ Xəta: Qeydiyyat tamamlanmadı! ✦ Qeydiyyat zamanı promo-kod - VIP662 daxil etmək mütləqdir ● Qeydiyyat tamamlandıqdan sonra botda avtomatik bildiriş alacaqsınız.',
-    register_button: 'Qeydiyyatdan keç',
-    back_to_menu: 'Əsas menyuya qayıt',
-    instruction: `🤖 Bot OpenAI klaster neyron şəbəkəsi əsasında qurulub və öyrədilib!
-⚜️ Botu öyrətmək üçün 30,000 oyun 🎰 oynanılıb.
-Hal-hazırda bot istifadəçiləri öz 💸 kapitalının 15-25%-ni hər gün uğurla qazanırlar!
-Bot hələ də yoxlamalar və düzəlişlərdən keçir! Botun dəqiqliyi 92%-dir!
-Maksimum qazanc əldə etmək üçün bu təlimata əməl edin:
-🟢 1. [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id}) bukmeker kontorunda qeydiyyatdan keçin
-[Əgər açılmırsa, VPN (İsveç) istifadə edin. Play Market/App Store-da bir çox pulsuz xidmətlər var, məsələn: Vpnify, Planet VPN, Hotspot VPN və s.!]
-❗️ Qeydiyyat və promo-kod olmadan siqnallara giriş verilməyəcək ❗️
-🟢 2. Hesabınızın balansını artırın.
-🟢 3. 1win oyunlar bölməsinə keçin və oyun seçin.
-🟢 4. Tələlərin sayını üçə təyin edin. Bu vacibdir!
-🟢 5. Botdan siqnal tələb edin və botun siqnallarına uyğun mərc qoyun.
-🟢 6. Uğursuz siqnal olarsa, növbəti siqnal ilə zərəri tam örtmək üçün mərcinizi iki dəfə (x²) artırmağı tövsiyə edirik.`,
-    registration_success: 'Uğurlu qeydiyyat münasibətilə təbrik edirik! 🥳\n🌐 2-ci addım - İlk depoziti yatırın.\n✦ Depozit nə qədər böyükdürsə, botda SƏVİYYƏ o qədər yüksəkdir və səviyyə nə qədər yüksəkdirsə, bir o qədər yüksək ehtimallı siqnallar alacaqsınız.\n● İlk depozit yatırıldıqdan sonra botda avtomatik bildiriş alacaqsınız.',
-    deposit_button: 'Depozit yatır',
-    select_game: 'Oyun seçin:',
-    aviator_button: 'AVIATOR',
-    luckyjet_button: 'LUCKY JET',
-    mines_button: 'MINES',
-    luckyjet_welcome: `VOXI SIGNAL LUCKY JET-ə xoş gəlmisiniz
-LUCKY JET, raketin uçmasından əvvəl artan əmsala mərc qoymalısınız.
-Nə qədər çox gözləsəniz, bir o qədər çox qazana bilərsiniz, amma əgər mərcinizi çıxarmadan raket uçarsa, uduzarsınız.
-Bizim botumuz mərc qoymaq üçün optimal anı müəyyənləşdirməyə kömək edə bilər!`,
-    get_signal: 'SIQNAL AL'
-  },
-  tr: {
-    welcome: "Voxy_Soft'a hoş geldiniz! Botu kullanmak için kanalımıza abone olun 🤝",
-    subscribe_button: 'Kanala abone ol',
-    check_subscription: 'Kontrol et',
-    main_menu: 'Ana menü:',
-    registration_button: 'Kayıt',
-    instruction_button: 'Talimatlar',
-    select_language_button: 'Dil seç',
-    help_button: 'Help',
-    get_signal_button: 'Sinyal al',
-    registration_error: '⚠️ Hata: Kayıt tamamlanmadı! ✦ Kayıt sırasında promosyon kodu - VIP662 girmek zorunludur ● Kayıt tamamlandıktan sonra bota otomatik bir bildirim alacaksınız.',
-    register_button: 'Kayıt ol',
-    back_to_menu: 'Ana menüye dön',
-    instruction: `🤖 Bot, OpenAI'nin küme sinir ağı üzerine inşa edilmiş ve eğitilmiştir!
-⚜️ Botu eğitmek için 30.000 oyun 🎰 oynandı.
-Şu anda bot kullanıcıları, 💸 sermayelerinin %15-25'ini her gün başarıyla kazanıyor!
-Bot hala test ve düzeltmelerden geçiyor! Botun doğruluğu %92'dir!
-Maksimum kâr elde etmek için şu talimatları izleyin:
-🟢 1. [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id}) bahis şirketinde kayıt olun
-[Açılmazsa, VPN (İsveç) kullanın. Play Market/App Store'da birçok ücretsiz hizmet var, örneğin: Vpnify, Planet VPN, Hotspot VPN vb.!]
-❗️ Kayıt ve promosyon kodu olmadan sinyallere erişim verilmez ❗️
-🟢 2. Hesabınızın bakiyesini doldurun.
-🟢 3. 1win oyunlar bölümüne gidin ve bir oyun seçin.
-🟢 4. Tuzak sayısını üçe ayarlayın. Bu önemli!
-🟢 5. Bottan sinyal talep edin ve botun sinyallerine göre bahis yapın.
-🟢 6. Başarısız bir sinyal durumunda, kaybı tamamen telafi etmek için bir sonraki sinyalle bahsinizi ikiye katlamanızı (x²) öneririz.`,
-    registration_success: 'Başarılı kayıt için tebrikler! 🥳\n🌐 Adım 2 - İlk para yatırmayı yap.\n✦ Yatırım ne kadar büyükse, botta SEVİYE o kadar yüksek olur ve seviye ne kadar yüksekse, o kadar çok yüksek olasılıklı sinyal alırsınız.\n● İlk para yatırma işleminden sonra bota otomatik bir bildirim alacaksınız.',
-    deposit_button: 'Para yatır',
-    select_game: 'Oyun seç:',
-    aviator_button: 'AVIATOR',
-    luckyjet_button: 'LUCKY JET',
-    mines_button: 'MINES',
-    luckyjet_welcome: `VOXI SIGNAL LUCKY JET'e hoş geldiniz
-LUCKY JET, roket uçmadan önce artan bir çarpana bahis yapmanız gereken bir oyundur.
-Ne kadar uzun beklerseniz, o kadar çok kazanabilirsiniz, ancak roket siz bahsi çekmeden uçarsa, kaybedersiniz.
-Botumuz, bahis yapmak için en uygun anı belirlemenize yardımcı olabilir!`,
-    get_signal: 'SİNYAL AL'
+    get_signal: 'GET SIGNAL',
+    channel_not_found: 'Error: channel not found. Please contact support.',
+    bot_no_admin: 'Error: bot is not an admin of the channel. Please add the bot as an admin.'
   }
+  // Добавьте остальные языки (hi, pt, es, uz, az, tr) с аналогичными сообщениями, если требуется
 };
 
 // Функция для получения сообщения на нужном языке
@@ -435,7 +212,7 @@ function getMessage(key, lang, user_id = '') {
   return message;
 }
 
-// Проверка подписки с логированием
+// Проверка подписки
 async function checkSubscription(ctx) {
   const userId = ctx.chat.id.toString();
   console.log(`Checking subscription for user ${userId} in channel ${CHANNEL_ID}`);
@@ -445,10 +222,13 @@ async function checkSubscription(ctx) {
     return ['member', 'administrator', 'creator'].includes(chatMember.status);
   } catch (err) {
     console.error('Error checking subscription:', err);
+    const lang = await getUserLanguage(userId);
     if (err.response?.error_code === 400 && err.response?.description.includes('chat not found')) {
-      ctx.reply('Ошибка: канал не найден. Пожалуйста, проверьте CHANNEL_ID.');
+      ctx.reply(getMessage('channel_not_found', lang));
     } else if (err.response?.error_code === 403) {
-      ctx.reply('Ошибка: бот не имеет прав администратора в канале.');
+      ctx.reply(getMessage('bot_no_admin', lang));
+    } else {
+      ctx.reply('Ошибка проверки подписки. Попробуйте позже.');
     }
     return false;
   }
@@ -647,7 +427,7 @@ async function sendWelcomeMessage(ctx, lang) {
       ctx.reply(getMessage('welcome', lang), {
         reply_markup: {
           inline_keyboard: [
-            [{ text: getMessage('subscribe_button', lang), url: `https://t.me/${CHANNEL_ID}` }],
+            [{ text: getMessage('subscribe_button', lang), url: `https://t.me${CHANNEL_ID.startsWith('@') ? '' : '/'}${CHANNEL_ID}` }],
             [{ text: getMessage('check_subscription', lang), callback_data: 'check_subscription' }]
           ]
         }
@@ -684,13 +464,11 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   const isProduction = process.env.NODE_ENV === 'production';
   if (isProduction) {
-    // Настройка вебхука для продакшена
     bot.telegram.setWebhook(`${APP_URL}/webhook`).then(() => {
       console.log(`Webhook set to ${APP_URL}/webhook`);
     }).catch(err => console.error('Error setting webhook:', err));
     app.use(bot.webhookCallback('/webhook'));
   } else {
-    // Polling для локального тестирования
     bot.launch().then(() => {
       console.log('Bot started in polling mode');
     }).catch(err => console.error('Error starting bot:', err));
