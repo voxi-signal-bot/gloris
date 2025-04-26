@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Telegram Bot Token
-const TELEGRAM_BOT_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'; // Замените на ваш токен
+const TELEGRAM_BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY'; // Замените на ваш токен
 const bot = new TelegramBot(8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY, { polling: false });
 
 // URL вашего канала и Mini App
