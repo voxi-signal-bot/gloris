@@ -1,28 +1,26 @@
 const { Telegraf, Markup } = require('telegraf');
 const express = require('express');
 const bodyParser = require('body-parser');
-const sqlite3 = require('sqlite3').verbose();
+const Database = require('better-sqlite3');
 
 // Настройки бота
 const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY';
 const CHANNEL_ID = '@xuiuugg';
 const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp';
 const APP_URL = 'https://gloris-production.up.railway.app';
-const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo';
+const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo&promocode=VIP662';
 
 const bot = new Telegraf(BOT_TOKEN);
 const app = express();
-const db = new sqlite3.Database('users.db');
+const db = new Database('users.db', { verbose: console.log });
 
 // Настройка базы данных
-db.serialize(() => {
-  db.run(`CREATE TABLE IF NOT EXISTS users (
-    user_id TEXT PRIMARY KEY,
-    language TEXT DEFAULT 'ru',
-    registered INTEGER DEFAULT 0,
-    deposited INTEGER DEFAULT 0
-  )`);
-});
+db.exec(`CREATE TABLE IF NOT EXISTS users (
+  user_id TEXT PRIMARY KEY,
+  language TEXT DEFAULT 'ru',
+  registered INTEGER DEFAULT 0,
+  deposited INTEGER DEFAULT 0
+)`);
 
 // Middleware для обработки JSON и URL-encoded данных
 app.use(bodyParser.json());
@@ -40,42 +38,26 @@ app.post('/webhook', async (req, res) => {
   }
 });
 
-// Обновление базы данных с использованием Promise
+// Обновление базы данных (синхронно)
 function updateUserRegistration(user_id) {
-  return new Promise((resolve, reject) => {
-    db.run(`UPDATE users SET registered = 1 WHERE user_id = ?`, [user_id], function (err) {
-      if (err) {
-        console.error('DB error on registration:', err);
-        reject(err);
-      } else {
-        console.log(`User ${user_id} marked as registered`);
-        resolve();
-      }
-    });
-  });
+  const stmt = db.prepare(`UPDATE users SET registered = 1 WHERE user_id = ?`);
+  const result = stmt.run(user_id);
+  console.log(`User ${user_id} marked as registered, changes: ${result.changes}`);
+  return result.changes > 0;
 }
 
-// Проверка статуса пользователя с возможной повторной попыткой
-function checkUserStatus(user_id, retries = 2, delay = 500) {
-  return new Promise((resolve, reject) => {
-    const attempt = () => {
-      db.get(`SELECT * FROM users WHERE user_id = ?`, [user_id], (err, row) => {
-        if (err) {
-          console.error('DB error on status check:', err);
-          reject(err);
-        } else if (row?.registered === 1 || retries === 0) {
-          resolve(row);
-        } else {
-          console.log(`User ${user_id} not yet registered, retrying... (${retries} retries left)`);
-          setTimeout(() => {
-            retries--;
-            attempt();
-          }, delay);
-        }
-      });
-    };
-    attempt();
-  });
+// Проверка статуса пользователя (синхронно)
+function checkUserStatus(user_id) {
+  const stmt = db.prepare(`SELECT * FROM users WHERE user_id = ?`);
+  const row = stmt.get(user_id);
+  return row;
+}
+
+// Получение языка пользователя (синхронно)
+function getUserLanguage(user_id) {
+  const stmt = db.prepare(`SELECT language FROM users WHERE user_id = ?`);
+  const row = stmt.get(user_id);
+  return row?.language || 'ru';
 }
 
 // Обработка постбэков от 1win
@@ -93,8 +75,11 @@ app.get('/postback', async (req, res) => {
   if (event_id === 'registration') {
     console.log(`Processing registration for user ${user_id}`);
     try {
-      await updateUserRegistration(user_id);
-      const lang = await getUserLanguage(user_id);
+      const updated = updateUserRegistration(user_id);
+      if (!updated) {
+        console.warn(`User ${user_id} not found in database for registration`);
+      }
+      const lang = getUserLanguage(user_id);
       await bot.telegram.sendPhoto(user_id, 'https://i.imgur.com/eABK5if.jpeg', {
         caption: getMessage('registration_success', lang),
         reply_markup: {
@@ -123,14 +108,11 @@ app.get('/postback', async (req, res) => {
     const depositAmount = parseFloat(amount);
     console.log(`Processing deposit for user ${user_id}: amount = ${depositAmount}`);
     if (depositAmount >= 10) {
-      db.run(`UPDATE users SET deposited = 1 WHERE user_id = ?`, [user_id], (err) => {
-        if (err) {
-          console.error('DB error on deposit:', err);
-        } else {
-          console.log(`User ${user_id} marked as deposited`);
-        }
-      });
-      getUserLanguage(user_id).then(lang => {
+      const stmt = db.prepare(`UPDATE users SET deposited = 1 WHERE user_id = ?`);
+      const result = stmt.run(user_id);
+      console.log(`User ${user_id} marked as deposited, changes: ${result.changes}`);
+      if (result.changes > 0) {
+        const lang = getUserLanguage(user_id);
         bot.telegram.sendMessage(user_id, getMessage('select_game', lang), {
           reply_markup: {
             inline_keyboard: [
@@ -140,7 +122,7 @@ app.get('/postback', async (req, res) => {
             ]
           }
         }).catch(err => console.error('Error sending deposit message:', err));
-      });
+      }
     } else {
       console.log(`Deposit amount ${depositAmount} for user ${user_id} is less than 10; no action taken`);
     }
@@ -149,19 +131,6 @@ app.get('/postback', async (req, res) => {
   }
   res.sendStatus(200);
 });
-
-// Получение языка пользователя
-function getUserLanguage(user_id) {
-  return new Promise((resolve) => {
-    db.get(`SELECT language FROM users WHERE user_id = ?`, [user_id], (err, row) => {
-      if (err) {
-        console.error('DB error on language fetch:', err);
-        resolve('ru');
-      }
-      resolve(row?.language || 'ru');
-    });
-  });
-}
 
 // Сообщения на разных языках
 const messages = {
@@ -474,29 +443,23 @@ function getMessage(key, lang, user_id = '') {
 bot.start(async (ctx) => {
   const chatId = ctx.chat.id;
   console.log(`Processing /start for user ${chatId}`);
-  db.get(`SELECT * FROM users WHERE user_id = ?`, [chatId], async (err, row) => {
-    if (err) {
-      console.error('DB error on user check:', err);
-      return ctx.reply('Ошибка базы данных. Попробуйте позже.');
-    }
-    if (!row) {
-      db.run(`INSERT INTO users (user_id, language) VALUES (?, 'ru')`, [chatId], (err) => {
-        if (err) console.error('DB error on user insert:', err);
-      });
-      ctx.reply('Выберите язык / Select language:', {
-        reply_markup: {
-          inline_keyboard: [
-            [{ text: 'Русский 🇷🇺', callback_data: 'lang_ru' }, { text: 'English 🇬🇧', callback_data: 'lang_en' }],
-            [{ text: 'हिन्दी 🇮🇳', callback_data: 'lang_hi' }, { text: 'Português 🇧🇷', callback_data: 'lang_pt' }],
-            [{ text: 'Español 🇪🇸', callback_data: 'lang_es' }, { text: 'Oʻzbek 🇺🇿', callback_data: 'lang_uz' }],
-            [{ text: 'Azərbaycan 🇦🇿', callback_data: 'lang_az' }, { text: 'Türkçe 🇹🇷', callback_data: 'lang_tr' }]
-          ]
-        }
-      }).catch(err => console.error('Error sending language selection:', err));
-    } else {
-      await sendWelcomeMessage(ctx, row.language || 'ru');
-    }
-  });
+  const row = checkUserStatus(chatId);
+  if (!row) {
+    const stmt = db.prepare(`INSERT INTO users (user_id, language) VALUES (?, 'ru')`);
+    stmt.run(chatId);
+    ctx.reply('Выберите язык / Select language:', {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: 'Русский 🇷🇺', callback_data: 'lang_ru' }, { text: 'English 🇬🇧', callback_data: 'lang_en' }],
+          [{ text: 'हिन्दी 🇮🇳', callback_data: 'lang_hi' }, { text: 'Português 🇧🇷', callback_data: 'lang_pt' }],
+          [{ text: 'Español 🇪🇸', callback_data: 'lang_es' }, { text: 'Oʻzbek 🇺🇿', callback_data: 'lang_uz' }],
+          [{ text: 'Azərbaycan 🇦🇿', callback_data: 'lang_az' }, { text: 'Türkçe 🇹🇷', callback_data: 'lang_tr' }]
+        ]
+      }
+    }).catch(err => console.error('Error sending language selection:', err));
+  } else {
+    await sendWelcomeMessage(ctx, row.language || 'ru');
+  }
 });
 
 // Обработка callback-запросов
@@ -507,21 +470,20 @@ bot.on('callback_query', async (ctx) => {
 
   if (data.startsWith('lang_')) {
     const lang = data.split('_')[1];
-    db.run(`UPDATE users SET language = ? WHERE user_id = ?`, [lang, chatId], (err) => {
-      if (err) console.error('DB error on language update:', err);
-    });
+    const stmt = db.prepare(`UPDATE users SET language = ? WHERE user_id = ?`);
+    stmt.run(lang, chatId);
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
     await sendWelcomeMessage(ctx, lang);
   } else if (data === 'continue') {
     console.log(`User ${chatId} clicked Continue, sending main menu`);
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-    await sendMainMenu(ctx, await getUserLanguage(chatId));
+    await sendMainMenu(ctx, getUserLanguage(chatId));
   } else if (data === 'main_menu') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-    await sendMainMenu(ctx, await getUserLanguage(chatId));
+    await sendMainMenu(ctx, getUserLanguage(chatId));
   } else if (data === 'registration') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-    const lang = await getUserLanguage(chatId);
+    const lang = getUserLanguage(chatId);
     ctx.replyWithPhoto('https://i.imgur.com/QouqMUC.jpeg', {
       caption: getMessage('registration_error', lang),
       reply_markup: {
@@ -543,7 +505,7 @@ bot.on('callback_query', async (ctx) => {
     });
   } else if (data === 'instruction') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-    const lang = await getUserLanguage(chatId);
+    const lang = getUserLanguage(chatId);
     ctx.reply(getMessage('instruction', lang, chatId), {
       reply_markup: {
         inline_keyboard: [
@@ -573,9 +535,9 @@ bot.on('callback_query', async (ctx) => {
     }).catch(err => console.error('Error sending help:', err));
   } else if (data === 'get_signal') {
     try {
-      const row = await checkUserStatus(chatId);
+      const row = checkUserStatus(chatId);
       console.log(`User ${chatId} status - registered: ${row?.registered}, deposited: ${row?.deposited}`);
-      const lang = await getUserLanguage(chatId);
+      const lang = getUserLanguage(chatId);
       if (!row?.registered) {
         await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
         ctx.replyWithPhoto('https://i.imgur.com/QouqMUC.jpeg', {
@@ -636,7 +598,7 @@ bot.on('callback_query', async (ctx) => {
     }
   } else if (data === 'game_aviator' || data === 'game_mines') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-    const lang = await getUserLanguage(chatId);
+    const lang = getUserLanguage(chatId);
     ctx.reply('Этот раздел находится в разработке. Пожалуйста, выберите LUCKY JET.', {
       reply_markup: {
         inline_keyboard: [
@@ -647,7 +609,7 @@ bot.on('callback_query', async (ctx) => {
     }).catch(err => console.error('Error sending placeholder message:', err));
   } else if (data === 'game_luckyjet') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-    const lang = await getUserLanguage(chatId);
+    const lang = getUserLanguage(chatId);
     ctx.reply(getMessage('luckyjet_welcome', lang), {
       reply_markup: {
         inline_keyboard: [
@@ -735,4 +697,11 @@ app.listen(PORT, () => {
       console.log('Bot started in polling mode');
     }).catch(err => console.error('Error starting bot:', err));
   }
+});
+
+// Закрытие базы данных при завершении работы
+process.on('SIGINT', () => {
+  db.close();
+  console.log('Database closed');
+  process.exit(0);
 });
