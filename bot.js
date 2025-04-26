@@ -8,7 +8,7 @@ const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY';
 const CHANNEL_ID = '@xuiuugg';
 const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp';
 const APP_URL = 'https://gloris-production.up.railway.app';
-const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo';
+const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo&promocode=VIP662';
 
 const bot = new Telegraf(BOT_TOKEN);
 const app = express();
@@ -62,13 +62,25 @@ app.get('/postback', (req, res) => {
       }
     });
     getUserLanguage(user_id).then(lang => {
-      bot.telegram.sendMessage(user_id, getMessage('registration_success', lang), {
+      bot.telegram.sendPhoto(user_id, 'https://i.imgur.com/eABK5if.jpeg', {
+        caption: getMessage('registration_success', lang),
         reply_markup: {
           inline_keyboard: [
-            [{ text: getMessage('deposit_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${user_id}` }]
+            [{ text: getMessage('deposit_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${user_id}` }],
+            [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
           ]
         }
-      }).catch(err => console.error('Error sending registration message:', err));
+      }).catch(err => {
+        console.error('Error sending registration message with photo:', err);
+        bot.telegram.sendMessage(user_id, getMessage('registration_success', lang), {
+          reply_markup: {
+            inline_keyboard: [
+              [{ text: getMessage('deposit_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${user_id}` }],
+              [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+            ]
+          }
+        }).catch(fallbackErr => console.error('Error sending fallback registration message:', fallbackErr));
+      });
     });
   } 
   // Обработка события депозита
@@ -226,7 +238,7 @@ Our bot can help determine the optimal moment to bet!`,
     luckyjet_welcome: `VOXI SIGNAL LUCKY JET में आपका स्वागत है
 LUCKY JET एक ऐसा गेम है जिसमें आपको रॉकेट के उड़ने से पहले बढ़ते गुणक पर दांव लगाना होता है।
 जितना अधिक आप इंतजार करते हैं, उतना अधिक आप जीत सकते हैं, लेकिन यदि आप दांव को भुनाने से पहले रॉकेट उड़ जाता है, तो आप हार जाते हैं।
-हमारा बॉट दांव लगाने के लिए最適 समय निर्धारित करने में मदद कर सकता है!`,
+हमारा बॉट दांव लगाने के लिए सबसे अच्छा समय निर्धारित करने में मदद कर सकता है!`,
     get_signal: 'सिग्नल प्राप्त करें'
   },
   pt: {
@@ -530,8 +542,9 @@ bot.on('callback_query', async (ctx) => {
         console.error('DB error on signal check:', err);
         return ctx.reply('Ошибка базы данных. Попробуйте позже.');
       }
+      console.log(`User ${chatId} status - registered: ${row?.registered}, deposited: ${row?.deposited}`);
       const lang = await getUserLanguage(chatId);
-      if (!row.registered) {
+      if (!row?.registered) {
         await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
         ctx.replyWithPhoto('https://i.imgur.com/QouqMUC.jpeg', {
           caption: getMessage('registration_error', lang),
@@ -554,14 +567,25 @@ bot.on('callback_query', async (ctx) => {
         });
       } else if (!row.deposited) {
         await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-        ctx.reply(getMessage('registration_success', lang), {
+        ctx.replyWithPhoto('https://i.imgur.com/eABK5if.jpeg', {
+          caption: getMessage('registration_success', lang),
           reply_markup: {
             inline_keyboard: [
               [{ text: getMessage('deposit_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
               [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
             ]
           }
-        }).catch(err => console.error('Error sending deposit prompt:', err));
+        }).catch(err => {
+          console.error('Error sending deposit prompt with photo:', err);
+          ctx.reply(getMessage('registration_success', lang), {
+            reply_markup: {
+              inline_keyboard: [
+                [{ text: getMessage('deposit_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+                [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+              ]
+            }
+          }).catch(fallbackErr => console.error('Error sending fallback deposit prompt:', fallbackErr));
+        });
       } else {
         await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
         ctx.reply(getMessage('select_game', lang), {
