@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 // Настройки бота
 const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY';
-const CHANNEL_ID = '@xuiuugg'; // Исправлено для публичного канала
+const CHANNEL_ID = '@xuiuugg';
 const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp';
 const APP_URL = 'https://gloris-production.up.railway.app';
 const POSTBACK_SECRET = 'your_1win_secret';
@@ -411,7 +411,7 @@ Maksimum kâr elde etmek için şu talimatları izleyin:
     aviator_button: 'AVIATOR',
     luckyjet_button: 'LUCKY JET',
     mines_button: 'MINES',
-    luckyjet_welcome: `VOXI SIGNAL LUCKY JET'e hoş geldiniz
+    luckyjet_welcome: `VOXI SIGNAL LUCKY JET'e hoŞ geldiniz
 LUCKY JET, roket uçmadan önce artan bir çarpana bahis yapmanız gereken bir oyundur.
 Ne kadar uzun beklerseniz, o kadar çok kazanabilirsiniz, ancak roket siz bahsi çekmeden uçarsa, kaybedersiniz.
 Botumuz, bahis yapmak için en uygun anı belirlemenize yardımcı olabilir!`,
@@ -594,10 +594,11 @@ async function sendWelcomeMessage(ctx, lang) {
   }).catch(err => console.error('Error sending welcome message:', err));
 }
 
-// Главное меню
+// Главное меню с фотографией
 async function sendMainMenu(ctx, lang) {
   console.log(`Sending main menu to user ${ctx.chat.id} with language ${lang}`);
-  ctx.reply(getMessage('main_menu', lang), {
+  ctx.replyWithPhoto('https://i.imgur.com/x8J6K8l.png', {
+    caption: getMessage('main_menu', lang),
     reply_markup: {
       inline_keyboard: [
         [{ text: getMessage('registration_button', lang), callback_data: 'registration' }],
@@ -607,7 +608,21 @@ async function sendMainMenu(ctx, lang) {
         [{ text: getMessage('get_signal_button', lang), callback_data: 'get_signal' }]
       ]
     }
-  }).catch(err => console.error('Error sending main menu:', err));
+  }).catch(err => {
+    console.error('Error sending main menu with photo:', err);
+    // Fallback: отправка без фото, если изображение не загрузилось
+    ctx.reply(getMessage('main_menu', lang), {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: getMessage('registration_button', lang), callback_data: 'registration' }],
+          [{ text: getMessage('instruction_button', lang), callback_data: 'instruction' }],
+          [{ text: getMessage('select_language_button', lang), callback_data: 'select_language' }],
+          [{ text: getMessage('help_button', lang), callback_data: 'help' }],
+          [{ text: getMessage('get_signal_button', lang), callback_data: 'get_signal' }]
+        ]
+      }
+    }).catch(fallbackErr => console.error('Error sending fallback main menu:', fallbackErr));
+  });
 }
 
 // Глобальный обработчик ошибок
