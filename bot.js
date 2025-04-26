@@ -40,8 +40,46 @@ app.post('/webhook', async (req, res) => {
   }
 });
 
+// Обновление базы данных с использованием Promise
+function updateUserRegistration(user_id) {
+  return new Promise((resolve, reject) => {
+    db.run(`UPDATE users SET registered = 1 WHERE user_id = ?`, [user_id], function (err) {
+      if (err) {
+        console.error('DB error on registration:', err);
+        reject(err);
+      } else {
+        console.log(`User ${user_id} marked as registered`);
+        resolve();
+      }
+    });
+  });
+}
+
+// Проверка статуса пользователя с возможной повторной попыткой
+function checkUserStatus(user_id, retries = 2, delay = 500) {
+  return new Promise((resolve, reject) => {
+    const attempt = () => {
+      db.get(`SELECT * FROM users WHERE user_id = ?`, [user_id], (err, row) => {
+        if (err) {
+          console.error('DB error on status check:', err);
+          reject(err);
+        } else if (row?.registered === 1 || retries === 0) {
+          resolve(row);
+        } else {
+          console.log(`User ${user_id} not yet registered, retrying... (${retries} retries left)`);
+          setTimeout(() => {
+            retries--;
+            attempt();
+          }, delay);
+        }
+      });
+    };
+    attempt();
+  });
+}
+
 // Обработка постбэков от 1win
-app.get('/postback', (req, res) => {
+app.get('/postback', async (req, res) => {
   console.log('Received postback from 1win:', req.query);
   const { event_id, sub1: user_id, amount } = req.query;
 
@@ -54,15 +92,10 @@ app.get('/postback', (req, res) => {
   // Обработка события регистрации
   if (event_id === 'registration') {
     console.log(`Processing registration for user ${user_id}`);
-    db.run(`UPDATE users SET registered = 1 WHERE user_id = ?`, [user_id], (err) => {
-      if (err) {
-        console.error('DB error on registration:', err);
-      } else {
-        console.log(`User ${user_id} marked as registered`);
-      }
-    });
-    getUserLanguage(user_id).then(lang => {
-      bot.telegram.sendPhoto(user_id, 'https://i.imgur.com/eABK5if.jpeg', {
+    try {
+      await updateUserRegistration(user_id);
+      const lang = await getUserLanguage(user_id);
+      await bot.telegram.sendPhoto(user_id, 'https://i.imgur.com/eABK5if.jpeg', {
         caption: getMessage('registration_success', lang),
         reply_markup: {
           inline_keyboard: [
@@ -81,7 +114,9 @@ app.get('/postback', (req, res) => {
           }
         }).catch(fallbackErr => console.error('Error sending fallback registration message:', fallbackErr));
       });
-    });
+    } catch (err) {
+      console.error('Error processing registration:', err);
+    }
   } 
   // Обработка события депозита
   else if (event_id === 'deposit') {
@@ -537,11 +572,8 @@ bot.on('callback_query', async (ctx) => {
       }
     }).catch(err => console.error('Error sending help:', err));
   } else if (data === 'get_signal') {
-    db.get(`SELECT * FROM users WHERE user_id = ?`, [chatId], async (err, row) => {
-      if (err) {
-        console.error('DB error on signal check:', err);
-        return ctx.reply('Ошибка базы данных. Попробуйте позже.');
-      }
+    try {
+      const row = await checkUserStatus(chatId);
       console.log(`User ${chatId} status - registered: ${row?.registered}, deposited: ${row?.deposited}`);
       const lang = await getUserLanguage(chatId);
       if (!row?.registered) {
@@ -598,7 +630,10 @@ bot.on('callback_query', async (ctx) => {
           }
         }).catch(err => console.error('Error sending game selection:', err));
       }
-    });
+    } catch (err) {
+      console.error('Error checking user status:', err);
+      ctx.reply('Ошибка базы данных. Попробуйте позже.');
+    }
   } else if (data === 'game_aviator' || data === 'game_mines') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
     const lang = await getUserLanguage(chatId);
