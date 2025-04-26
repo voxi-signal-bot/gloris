@@ -130,7 +130,7 @@ const messages = {
     select_language_button: '🌐Выбрать язык',
     help_button: '🆘Help',
     get_signal_button: '⚜️Получить сигнал⚜️',
-    registration_error: '⚠️ Ошибка: Регистрация не пройдена! ✦ При регистрации обязательно вводите промокод - VIP662 ● После завершения регистрации, Вам автоматически придет уведомление в бота.',
+    registration_error: '⚠️ Ошибка: Регистрация не пройдена!\n\n✦ При регистрации обязательно вводите промокод - VIP662\n\n● После завершения регистраци, Вам автоматически придет уведомление в бота.',
     register_button: 'Зарегистрироваться',
     back_to_menu: 'Вернуться в главное меню',
     instruction: `🤖 Бот основан и обучен на кластерной нейронной сети OpenAI!
@@ -167,7 +167,7 @@ LUCKY JET - это игра, в которой вы должны сделать 
     select_language_button: '🌐Select language',
     help_button: '🆘Help',
     get_signal_button: '⚜️Get signal⚜️',
-    registration_error: '⚠️ Error: Registration not completed! ✦ Be sure to enter the promo code - VIP662 ● You will receive a notification in the bot after registration.',
+    registration_error: '⚠️ Error: Registration not completed!\n\n✦ Be sure to enter the promo code - VIP662\n\n● You will receive a notification in the bot after registration.',
     register_button: 'Register',
     back_to_menu: 'Back to main menu',
     instruction: `🤖 The bot is built and trained on OpenAI's cluster neural network!
@@ -204,7 +204,7 @@ Our bot can help determine the optimal moment to bet!`,
     select_language_button: '🌐भाषा चुनें',
     help_button: '🆘Help',
     get_signal_button: '⚜️सिग्नल प्राप्त करें⚜️',
-    registration_error: '⚠️ त्रुटि: पंजीकरण पूरा नहीं हुआ! ✦ पंजीकरण के दौरान प्रोमो कोड - VIP662 अवश्य दर्ज करें ● पंजीकरण के बाद आपको बॉट में एक अधिसूचना प्राप्त होगी।',
+    registration_error: '⚠️ त्रुटि: पंजीकरण पूरा नहीं हुआ!\n\n✦ पंजीकरण के दौरान प्रोमो कोड - VIP662 अवश्य दर्ज करें\n\n● पंजीकरण के बाद आपको बॉट में एक अधिसूचना प्राप्त होगी।',
     register_button: 'पंजीकरण करें',
     back_to_menu: 'मुख्य मेनू पर वापस',
     instruction: `🤖 बॉट OpenAI के क्लस्टर न्यूरल नेटवर्क पर आधारित और प्रशिक्षित है!
@@ -241,7 +241,7 @@ LUCKY JET एक ऐसा गेम है जिसमें आपको र�
     select_language_button: '🌐Selecionar idioma',
     help_button: '🆘Help',
     get_signal_button: '⚜️Obter sinal⚜️',
-    registration_error: '⚠️ Erro: Registro não concluído! ✦ Certifique-se de inserir o código promocional - VIP662 ● Você receberá uma notificação no bot após o registro.',
+    registration_error: '⚠️ Erro: Registro não concluído!\n\n✦ Certifique-se de inserir o código promocional - VIP662\n\n● Você receberá uma notificação no bot após o registro.',
     register_button: 'Registrar',
     back_to_menu: 'Voltar ao menu principal',
     instruction: `🤖 O bot é construído e treinado na rede neural de cluster da OpenAI!
@@ -278,7 +278,7 @@ Nosso bot pode ajudar a determinar o momento ideal para apostar!`,
     select_language_button: '🌐Seleccionar idioma',
     help_button: '🆘Help',
     get_signal_button: '⚜️Obtener señal⚜️',
-    registration_error: '⚠️ Error: ¡Registro no completado! ✦ Asegúrate de ingresar el código promocional - VIP662 ● Recibirás una notificación en el bot después del registro.',
+    registration_error: '⚠️ Error: ¡Registro no completado!\n\n✦ Asegúrate de ingresar el código promocional - VIP662\n\n● Recibirás una notificación en el bot después del registro.',
     register_button: 'Registrar',
     back_to_menu: 'Volver al menú principal',
     instruction: `🤖 ¡El bot está construido y entrenado en la red neuronal de clúster de OpenAI!
@@ -315,7 +315,7 @@ Cuanto más esperes, más puedes ganar, pero si el cohete despega antes de que r
     select_language_button: '🌐Til tanlash',
     help_button: '🆘Help',
     get_signal_button: '⚜️Signal olish⚜️',
-    registration_error: '⚠️ Xato: Ro‘yxatdan o‘tish yakunlanmadi! ✦ Ro‘yxatdan o‘tishda promo-kod - VIP662 ni kiritish shart ● Ro‘yxatdan o‘tish yakunlangandan so‘ng, botda avtomatik xabar olasiz.',
+    registration_error: '⚠️ Xato: Ro‘yxatdan o‘tish yakunlanmadi!\n\n✦ Ro‘yxatdan o‘tishda promo-kod - VIP662 ni kiritish shart\n\n● Ro‘yxatdan o‘tish yakunlangandan so‘ng, botda avtomatik xabar olasiz.',
     register_button: 'Ro‘yxatdan o‘tish',
     back_to_menu: 'Asosiy menyuga qaytish',
     instruction: `🤖 Bot OpenAI klaster neyron tarmog‘ida qurilgan va o‘qitilgan!
@@ -352,7 +352,7 @@ Bizning botimiz stavka qo‘yish uchun eng maqbul vaqtni aniqlashga yordam berad
     select_language_button: '🌐Dil seç',
     help_button: '🆘Help',
     get_signal_button: '⚜️Siqnal al⚜️',
-    registration_error: '⚠️ Xəta: Qeydiyyat tamamlanmadı! ✦ Qeydiyyat zamanı promo-kod - VIP662 daxil etmək mütləqdir ● Qeydiyyat tamamlandıqdan sonra botda avtomatik bildiriş alacaqsınız.',
+    registration_error: '⚠️ Xəta: Qeydiyyat tamamlanmadı!\n\n✦ Qeydiyyat zamanı promo-kod - VIP662 daxil etmək mütləqdir\n\n● Qeydiyyat tamamlandıqdan sonra botda avtomatik bildiriş alacaqsınız.',
     register_button: 'Qeydiyyatdan keç',
     back_to_menu: 'Əsas menyuya qayıt',
     instruction: `🤖 Bot OpenAI klaster neyron şəbəkəsi əsasında qurulub və öyrədilib!
@@ -389,7 +389,7 @@ Bizim botumuz mərc qoymaq üçün optimal anı müəyyənləşdirməyə kömək
     select_language_button: '🌐Dil seç',
     help_button: '🆘Help',
     get_signal_button: '⚜️Sinyal al⚜️',
-    registration_error: '⚠️ Hata: Kayıt tamamlanmadı! ✦ Kayıt sırasında promosyon kodu - VIP662 girmek zorunludur ● Kayıt tamamlandıktan sonra bota otomatik bir bildirim alacaksınız.',
+    registration_error: '⚠️ Hata: Kayıt tamamlanmadı!\n\n✦ Kayıt sırasında promosyon kodu - VIP662 girmek zorunludur\n\n● Kayıt tamamlandıktan sonra bota otomatik bir bildirim alacaksınız.',
     register_button: 'Kayıt ol',
     back_to_menu: 'Ana menüye dön',
     instruction: `🤖 Bot, OpenAI'nin küme sinir ağı üzerine inşa edilmiş ve eğitilmiştir!
@@ -478,14 +478,26 @@ bot.on('callback_query', async (ctx) => {
   } else if (data === 'registration') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
     const lang = await getUserLanguage(chatId);
-    ctx.reply(getMessage('registration_error', lang), {
+    ctx.replyWithPhoto('https://i.imgur.com/QouqMUC.jpeg', {
+      caption: getMessage('registration_error', lang),
       reply_markup: {
         inline_keyboard: [
-          [{ text: 'Зарегистрироваться', url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+          [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
           [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
         ]
       }
-    }).catch(err => console.error('Error sending registration error:', err));
+    }).catch(err => {
+      console.error('Error sending registration error with photo:', err);
+      // Fallback: отправка без фото, если изображение не загрузилось
+      ctx.reply(getMessage('registration_error', lang), {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+            [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+          ]
+        }
+      }).catch(fallbackErr => console.error('Error sending fallback registration error:', fallbackErr));
+    });
   } else if (data === 'instruction') {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
     const lang = await getUserLanguage(chatId);
@@ -525,14 +537,25 @@ bot.on('callback_query', async (ctx) => {
       const lang = await getUserLanguage(chatId);
       if (!row.registered) {
         await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
-        ctx.reply(getMessage('registration_error', lang), {
+        ctx.replyWithPhoto('https://i.imgur.com/QouqMUC.jpeg', {
+          caption: getMessage('registration_error', lang),
           reply_markup: {
             inline_keyboard: [
               [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
               [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
             ]
           }
-        }).catch(err => console.error('Error sending registration error:', err));
+        }).catch(err => {
+          console.error('Error sending registration error with photo:', err);
+          ctx.reply(getMessage('registration_error', lang), {
+            reply_markup: {
+              inline_keyboard: [
+                [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+                [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+              ]
+            }
+          }).catch(fallbackErr => console.error('Error sending fallback registration error:', fallbackErr));
+        });
       } else if (!row.deposited) {
         await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
         ctx.reply(getMessage('registration_success', lang), {
