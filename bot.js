@@ -162,19 +162,12 @@ app.get('/postback', async (req, res) => {
 const messages = {
   ru: {
     welcome: 'Добро пожаловать в Voxy_Soft🤖!
-
 Мы скрестили нейросети: легко обучаемую CLAUD-3.5 и самый умный CHAT-GPT! 🤖
-
 🔎 Теперь мы можем анализировать и предсказывать коэффициенты в игре Lucky Jet, угадывать клетки Mines, угадывать куда бить мяч в Penalty с минимальными погрешностями. 
-
 🎮 Всего было сыграно: 33.000+ игр, из них 96,7% оказались предсказаны верно! 
-
 🍀 Никаких ограничений нет, получить бан невозможно!
-
 🎯 Точность нейросети составляет 96,7%!
-
 🏆 Так же ведется еженедельный рейтинг из всех участников нашего бота. Игрок, выигравший больше за неделю получает большие призы от нашего канала!
-
 Для использования бота нажмите "Продолжить" 👇',
     continue_button: 'Продолжить',
     main_menu: 'Главное меню:',
@@ -213,19 +206,12 @@ LUCKY JET - это игра, в которой вы должны сделать 
   },
   en: {
     welcome: 'Welcome to Voxy_Soft🤖!
-
 We’ve combined neural networks: the easily trainable CLAUD-3.5 and the smartest CHAT-GPT! 🤖
-
 🔎 Now we can analyze and predict coefficients in the Lucky Jet game, guess Mines cells, and predict where to kick the ball in Penalty with minimal errors.
-
 🎮 A total of 33,000+ games have been played, of which 96.7% were predicted correctly!
-
 🍀 There are no restrictions, and getting banned is impossible!
-
 🎯 The neural network accuracy is 96.7%!
-
 🏆 We also maintain a weekly ranking of all bot participants. The player who wins the most in a week receives big prizes from our channel!
-
 To use the bot, click "Continue" 👇',
     continue_button: 'Continue',
     main_menu: 'Main menu:',
@@ -264,19 +250,12 @@ Our bot can help determine the optimal moment to bet!`,
   },
   hi: {
     welcome: 'वॉक्सी_सॉफ्ट में आपका स्वागत है🤖!
-
 हमने न्यूरल नेटवर्क को मिला दिया है: आसानी से प्रशिक्षित होने वाला CLAUD-3.5 और सबसे बुद्धिमान CHAT-GPT! 🤖
-
 🔎 अब हम लकी जेट गेम में गुणांकों का विश्लेषण और भविष्यवाणी कर सकते हैं, माइन्स की कोशिकाओं का अनुमान लगा सकते हैं, और पेनल्टी में गेंद को कहाँ मारना है इसका अनुमान न्यूनतम त्रुटियों के साथ लगा सकते हैं।
-
 🎮 कुल 33,000+ गेम खेले गए हैं, जिनमें से 96.7% की सही भविष्यवाणी की गई!
-
 🍀 कोई प्रतिबंध नहीं है, और प्रतिबंधित होना असंभव है!
-
 🎯 न्यूरल नेटवर्क की सटीकता 96.7% है!
-
 🏆 हम अपने बॉट के सभी प्रतिभागियों का साप्ताहिक रैंकिंग भी रखते हैं। जो खिलाड़ी सप्ताह में सबसे अधिक जीतता है, उसे हमारे चैनल से बड़े पुरस्कार मिलते हैं!
-
 बॉट का उपयोग करने के लिए "जारी रखें" पर क्लिक करें 👇',
     continue_button: 'जारी रखें',
     main_menu: 'मुख्य मेनू:',
@@ -315,19 +294,12 @@ LUCKY JET एक ऐसा गेम है जिसमें आपको र�
   },
   pt: {
     welcome: 'Bem-vindo ao Voxy_Soft🤖!
-
 Combinamos redes neurais: o facilmente treinável CLAUD-3.5 e o mais inteligente CHAT-GPT! 🤖
-
 🔎 Agora podemos analisar e prever multiplicadores no jogo Lucky Jet, adivinhar células no Mines e prever onde chutar a bola no Penalty com erros mínimos.
-
 🎮 Um total de 33.000+ jogos foram jogados, dos quais 96,7% foram previstos corretamente!
-
 🍀 Não há restrições, e ser banido é impossível!
-
 🎯 A precisão da rede neural é de 96,7%!
-
 🏆 Também mantemos um ranking semanal de todos os participantes do nosso bot. O jogador que ganhar mais na semana recebe grandes prêmios do nosso canal!
-
 Para usar o bot, clique em "Continuar" 👇',
     continue_button: 'Continuar',
     main_menu: 'Menu principal:',
@@ -366,19 +338,12 @@ Nosso bot pode ajudar a determinar o momento ideal para apostar!`,
   },
   es: {
     welcome: '¡Bienvenido a Voxy_Soft🤖!
-
 Hemos combinado redes neuronales: el fácilmente entrenable CLAUD-3.5 y el más inteligente CHAT-GPT! 🤖
-
 🔎 Ahora podemos analizar y predecir coeficientes en el juego Lucky Jet, adivinar celdas en Mines y predecir dónde patear el balón en Penalty con errores mínimos.
-
 🎮 Se han jugado un total de 33,000+ juegos, de los cuales el 96.7% fueron predichos correctamente!
-
 🍀 No hay restricciones, ¡y es imposible ser baneado!
-
 🎯 La precisión de la red neuronal es del 96.7%!
-
 🏆 También mantenemos un ranking semanal de todos los participantes de nuestro bot. ¡El jugador que gane más en una semana recibe grandes premios de nuestro canal!
-
 Para usar el bot, haz clic en "Continuar" 👇',
     continue_button: 'Continuar',
     main_menu: 'Menú principal:',
@@ -417,17 +382,11 @@ Cuanto más esperes, más puedes ganar, pero si el cohete despega antes de que r
   },
   uz: {
     welcome: 'Voxy_Softga xush kelibsiz🤖!
-
 Biz neyron tarmoqlarni birlashtirdik: oson o‘qitiladigan CLAUD-3.5 va eng aqlli CHAT-GPT! 🤖
-
 🔎 Endi biz Lucky Jet o‘yinidagi koeffitsientlarni tahlil qila va bashorat qila olamiz, Mines kataklarini taxmin qila olamiz va Penaltyda to‘pni qayerga tepish kerakligini minimal xatolar bilan aniqlay olamiz.
-
 🎮 Jami 33,000+ o‘yin o‘ynaldi, ulardan 96,7% to‘g‘ri bashorat qilindi!
-
 🍀 Hech qanday cheklovlar yo‘q, va ban olish mumkin emas!
-
 🎯 Neyron tarmoqning aniqligi 96,7%!
-
 🏆 Shuningdek, bizning botimizdagi barcha ishtirokchilarning haftalik reytingi yuritiladi. Haftada eng ko‘p yutgan o‘yinchi bizning kanalimizdan katta sovg‘alar oladi!
 
 Botdan foydalanish uchun "Davom etish" tugmasini bosing 👇',
@@ -468,19 +427,12 @@ Bizning botimiz stavka qo‘yish uchun eng maqbul vaqtni aniqlashga yordam berad
   },
   az: {
     welcome: 'Voxy_Soft-a xoş gəlmisiniz🤖!
-
 Biz neyron şəbəkələri birləşdirdik: asanlıqla öyrədilən CLAUD-3.5 və ən ağıllı CHAT-GPT! 🤖
-
 🔎 İndi biz Lucky Jet oyununda əmsalları təhlil edə və proqnozlaşdıra bilərik, Mines hüceyrələrini təxmin edə bilərik və Penalty-də topu hara vurmaq lazım olduğunu minimal səhvlərlə müəyyən edə bilərik.
-
 🎮 Cəmi 33,000+ oyun oynanılıb, onlardan 96,7%-i düzgün proqnozlaşdırılıb!
-
 🍀 Heç bir məhdudiyyət yoxdur və ban almaq mümkün deyil!
-
 🎯 Neyron şəbəkənin dəqiqliyi 96,7%-dir!
-
 🏆 Həmçinin botumuzun bütün iştirakçıları arasında həftəlik reytinq aparılır. Həftə ərzində ən çox qazanan oyunçu kanalımızdan böyük hədiyyələr alır!
-
 Botdan istifadə etmək üçün "Davam et" düyməsini basın 👇',
     continue_button: 'Davam et',
     main_menu: 'Əsas menyu:',
@@ -519,19 +471,12 @@ Bizim botumuz mərc qoymaq üçün optimal anı müəyyənləşdirməyə kömək
   },
   tr: {
     welcome: "Voxy_Soft'a hoş geldiniz🤖!
-
 Sinir ağlarını birleştirdik: kolayca eğitilebilen CLAUD-3.5 ve en zeki CHAT-GPT! 🤖
-
-🔎 Artık Lucky Jet oyununda çarpanları analiz edebilir ve tahmin edebilir, Mines hücrelerini tahmin edebilir ve Penalty'de topu nereye vuracağınızı minimum hatalarla belirleyebiliriz.
-
+🔎Artık Lucky Jet oyununda çarpanları analiz edebilir ve tahmin edebilir, Mines hücrelerini tahmin edebilir ve Penalty'de topu nereye vuracağınızı minimum hatalarla belirleyebiliriz.
 🎮 Toplamda 33.000+ oyun oynandı, bunların %96,7'si doğru tahmin edildi!
-
 🍀 Hiçbir kısıtlama yok ve ban almak imkansız!
-
 🎯 Sinir ağının doğruluğu %96,7!
-
 🏆 Ayrıca botumuzun tüm katılımcıları arasında haftalık bir sıralama tutuluyor. Hafta boyunca en çok kazanan oyuncu, kanalımızdan büyük ödüller alıyor!
-
 Botu kullanmak için "Devam Et" butonuna tıklayın 👇",
     continue_button: 'Devam Et',
     main_menu: 'Ana menü:',
