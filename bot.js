@@ -180,18 +180,19 @@ const messages = {
     register_button: 'Зарегистрироваться',
     back_to_menu: 'Вернуться в главное меню',
     instruction: `🤖 Бот основан и обучен на кластерной нейронной сети OpenAI!
-⚜️ Для обучения бота было сыграно 🎰 30,000 игр.
-В настоящее время пользователи бота успешно генерируют 15-25% от своего 💸 капитала ежедневно!
-Бот все еще проходит проверки и исправления! Точность бота составляет 92%!
+⚜️ Для обучения бота было сыграно 🎰 33,000+ игр.
+В настоящее время пользователи бота успешно генерируют 40-50% от своего 💸 капитала ежедневно!
+Бот все еще проходит проверки и исправления! Точность бота составляет 96.7%!
+Наш бот является самым лучшим ботом в мире, на нем зарабатывают около 100тыс человек ежедневно!
+Успейте получить софт бесплатно до того, как сделают его платным 💸 и пока он в открытом доступе💸❗️
 Чтобы достичь максимальной прибыли, следуйте этой инструкции:
-🟢 1. Зарегистрируйтесь в букмекерской конторе [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id})
+🟢 1. Зарегистрируйтесь в букмекерской конторе 1WIN, кнопка в боте РЕГИСТРАЦИЯ
 [Если не открывается, воспользуйтесь VPN (Швеция). В Play Market/App Store есть много бесплатных сервисов, например: Vpnify, Planet VPN, Hotspot VPN и т.д.!]
 ❗️ Без регистрации и промокода доступ к сигналам не будет открыт ❗️
 🟢 2. Пополните баланс своего счета.
-🟢 3. Перейдите в раздел игр 1win и выберите игру.
-🟢 4. Установите количество ловушек на три. Это важно!
-🟢 5. Запросите сигнал у бота и ставьте ставки в соответствии с сигналами от бота.
-🟢 6. В случае неудачного сигнала рекомендуем удвоить (x²) вашу ставку, чтобы полностью покрыть убыток с помощью следующего сигнала.`,
+🟢 3. Перейдите в раздел игр 1win и выберите 1 из игр. (Lucky Jet, Mines, Penalty)
+🟢 4. Запросите сигнал у бота и ставьте ставки в соответствии с сигналами от бота.
+🟢 5. В случае неудачного сигнала рекомендуем удвоить (x²) вашу ставку, чтобы полностью покрыть убыток с помощью следующего сигнала.`,
     registration_success: 'Поздравляем с успешной регистрацией! 🥳\n🌐 Шаг 2 - Внеси первый депозит.\n✦ Чем больше депозит, тем больше УРОВЕНЬ в боте, а чем больше уровень в боте, тем большее количество сигналов с высокой вероятностью проходимости ты будешь получать.\n● После пополнения первого депозита, Вам автоматически придет уведомление в бота.',
     deposit_button: 'Внести депозит',
     select_game: 'Выберите игру:',
@@ -224,18 +225,19 @@ To use the bot, click "Continue" 👇`,
     register_button: 'Register',
     back_to_menu: 'Back to main menu',
     instruction: `🤖 The bot is built and trained on OpenAI's cluster neural network!
-⚜️ 30,000 games 🎰 were played to train the bot.
-Currently, bot users successfully generate 15-25% of their 💸 capital daily!
-The bot is still undergoing checks and fixes! The bot's accuracy is 92%!
-To achieve maximum profit, follow this instruction:
-🟢 1. Register at the [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id}) bookmaker
+⚜️ 33,000+ games 🎰 were played to train the bot.
+Currently, bot users successfully generate 40-50% of their 💸 capital daily!
+The bot is still undergoing checks and fixes! The bot's accuracy is 96.7%!
+Our bot is the best bot in the world, with around 100,000 people earning on it daily!
+Hurry up to get the software for free before it becomes paid 💸 and while it’s still publicly available 💸❗️
+To achieve maximum profit, follow these instructions:
+🟢 1. Register with the 1WIN bookmaker using the REGISTRATION button in the bot.
 [If it doesn't open, use a VPN (Sweden). There are many free services in Play Market/App Store, e.g., Vpnify, Planet VPN, Hotspot VPN, etc.!]
 ❗️ Without registration and promo code, access to signals will not be granted ❗️
 🟢 2. Fund your account balance.
-🟢 3. Go to the 1win games section and select a game.
-🟢 4. Set the number of traps to three. This is important!
-🟢 5. Request a signal from the bot and place bets according to the bot's signals.
-🟢 6. In case of an unsuccessful signal, we recommend doubling (x²) your bet to fully cover the loss with the next signal.`,
+🟢 3. Go to the 1win games section and select one of the games (Lucky Jet, Mines, Penalty).
+🟢 4. Request a signal from the bot and place bets according to the bot's signals.
+🟢 5. In case of an unsuccessful signal, we recommend doubling (x²) your bet to fully cover the loss with the next signal.`,
     registration_success: 'Congratulations on successful registration! 🥳\n🌐 Step 2 - Make your first deposit.\n✦ The larger the deposit, the higher the LEVEL in the bot, and the higher the level, the more high-probability signals you will receive.\n● You will receive a notification in the bot after the first deposit.',
     deposit_button: 'Make deposit',
     select_game: 'Select game:',
@@ -268,18 +270,19 @@ Our bot can help determine the optimal moment to bet!`,
     register_button: 'पंजीकरण करें',
     back_to_menu: 'मुख्य मेनू पर वापस',
     instruction: `🤖 बॉट OpenAI के क्लस्टर न्यूरल नेटवर्क पर आधारित और प्रशिक्षित है!
-⚜️ बॉट को प्रशिक्षित करने के लिए 30,000 गेम 🎰 खेले गए।
-वर्तमान में, बॉट उपयोगकर्ता अपने 💸 पूंजी का 15-25% प्रतिदिन सफलतापूर्वक उत्पन्न करते हैं!
-बॉट अभी भी जाँच और सुधार से गुजर रहा है! बॉट की सटीकता 92% है!
-अधिकतम लाभ प्राप्त करने के लिए, इस निर्देश का पालन करें:
-🟢 1. [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id}) बुकमेकर पर पंजीकरण करें
+⚜️ बॉट को प्रशिक्षित करने के लिए 33,000+ गेम 🎰 खेले गए।
+वर्तमान में, बॉट उपयोगकर्ता अपने 💸 पूंजी का 40-50% प्रतिदिन सफलतापूर्वक उत्पन्न करते हैं!
+बॉट अभी भी जाँच और सुधार से गुजर रहा है! बॉट की सटीकता 96.7% है!
+हमारा बॉट दुनिया का सबसे अच्छा बॉट है, इस पर प्रतिदिन लगभग 100,000 लोग कमाई करते हैं!
+जल्दी करें और सॉफ्टवेयर मुफ्त में प्राप्त करें, इससे पहले कि यह सशुल्क हो जाए 💸 और जब तक यह सार्वजनिक रूप से उपलब्ध है 💸❗️
+अधिकतम लाभ प्राप्त करने के लिए, इन निर्देशों का पालन करें:
+🟢 1. 1WIN बुकमेकर के साथ पंजीकरण करें, बॉट में पंजीकरण बटन का उपयोग करें।
 [यदि यह नहीं खुलता, तो VPN (स्वीडन) का उपयोग करें। Play Market/App Store में कई मुफ्त सेवाएँ हैं, जैसे: Vpnify, Planet VPN, Hotspot VPN आदि!]
 ❗️ पंजीकरण और प्रोमो कोड के बिना सिग्नल तक पहुँच नहीं दी जाएगी ❗️
 🟢 2. अपने खाते का बैलेंस टॉप अप करें।
-🟢 3. 1win गेम्स अनुभाग में जाएँ और एक गेम चुनें।
-🟢 4. जाल की संख्या को तीन पर सेट करें। यह महत्वपूर्ण है!
-🟢 5. बॉट से सिग्नल का अनुरोध करें और बॉट के सिग्नल के अनुसार दांव लगाएँ।
-🟢 6. असफल सिग्नल के मामले में, हम आपकी दांव को दोगुना (x²) करने की सलाह देते हैं ताकि अगले सिग्नल के साथ नुकसान को पूरी तरह से कवर किया जा सके।`,
+🟢 3. 1win गेम्स अनुभाग में जाएँ और एक गेम चुनें (Lucky Jet, Mines, Penalty)।
+🟢 4. बॉट से सिग्नल का अनुरोध करें और बॉट के सिग्नल के अनुसार दांव लगाएँ।
+🟢 5. असफल सिग्नल के मामले में, हम आपकी दांव को दोगुना (x²) करने की सलाह देते हैं ताकि अगले सिग्नल के साथ नुकसान को पूरी तरह से कवर किया जा सके।`,
     registration_success: 'सफल पंजीकरण के लिए बधाई! 🥳\n🌐 चरण 2 - अपनी पहली जमा राशि करें।\n✦ जमा राशि जितनी बड़ी होगी, बॉट में उतना ही उच्च स्तर होगा, और स्तर जितना ऊँचा होगा, उतने ही अधिक उच्च-संभावना वाले सिग्नल आपको प्राप्त होंगे।\n● पहली जमा राशि के बाद आपको बॉट में एक अधिसूचना प्राप्त होगी।',
     deposit_button: 'जमा करें',
     select_game: 'गेम चुनें:',
@@ -312,18 +315,19 @@ Para usar o bot, clique em "Continuar" 👇`,
     register_button: 'Registrar',
     back_to_menu: 'Voltar ao menu principal',
     instruction: `🤖 O bot é construído e treinado na rede neural de cluster da OpenAI!
-⚜️ 30.000 jogos 🎰 foram jogados para treinar o bot.
-Atualmente, os usuários do bot geram com sucesso 15-25% de seu 💸 capital diariamente!
-O bot ainda está em fase de testes e correções! A precisão do bot é de 92%!
+⚜️ 33.000+ jogos 🎰 foram jogados para treinar o bot.
+Atualmente, os usuários do bot geram com sucesso 40-50% de seu 💸 capital diariamente!
+O bot ainda está em fase de testes e correções! A precisão do bot é de 96,7%!
+Nosso bot é o melhor bot do mundo, com cerca de 100.000 pessoas ganhando com ele diariamente!
+Aproveite para obter o software gratuitamente antes que ele se torne pago 💸 e enquanto ainda está disponível publicamente 💸❗️
 Para alcançar o lucro máximo, siga estas instruções:
-🟢 1. Registre-se na casa de apostas [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id})
+🟢 1. Registre-se na casa de apostas 1WIN usando o botão REGISTRO no bot.
 [Se não abrir, use uma VPN (Suécia). Há muitos serviços gratuitos no Play Market/App Store, por exemplo: Vpnify, Planet VPN, Hotspot VPN, etc.!]
 ❗️ Sem registro e código promocional, o acesso aos sinais não será concedido ❗️
 🟢 2. Adicione fundos ao saldo da sua conta.
-🟢 3. Vá para a seção de jogos da 1win e selecione um jogo.
-🟢 4. Defina o número de armadilhas para três. Isso é importante!
-🟢 5. Solicite um sinal do bot e faça apostas de acordo com os sinais do bot.
-🟢 6. Em caso de um sinal malsucedido, recomendamos dobrar (x²) sua aposta para cobrir totalmente a perda com o próximo sinal.`,
+🟢 3. Vá para a seção de jogos da 1win e selecione um dos jogos (Lucky Jet, Mines, Penalty).
+🟢 4. Solicite um sinal do bot e faça apostas de acordo com os sinais do bot.
+🟢 5. Em caso de um sinal malsucedido, recomendamos dobrar (x²) sua aposta para cobrir totalmente a perda com o próximo sinal.`,
     registration_success: 'Parabéns pelo registro bem-sucedido! 🥳\n🌐 Etapa 2 - Faça seu primeiro depósito.\n✦ Quanto maior o depósito, maior o NÍVEL no bot, e quanto maior o nível, mais sinais de alta probabilidade você receberá.\n● Você receberá uma notificação no bot após o primeiro depósito.',
     deposit_button: 'Fazer depósito',
     select_game: 'Selecionar jogo:',
@@ -356,18 +360,19 @@ Para usar el bot, haz clic en "Continuar" 👇`,
     register_button: 'Registrar',
     back_to_menu: 'Volver al menú principal',
     instruction: `🤖 ¡El bot está construido y entrenado en la red neuronal de clúster de OpenAI!
-⚜️ Se jugaron 30,000 juegos 🎰 para entrenar al bot.
-Actualmente, los usuarios del bot generan con éxito entre el 15-25% de su 💸 capital diariamente.
-¡El bot aún está en pruebas y correcciones! La precisión del bot es del 92%.
+⚜️ Se jugaron 33,000+ juegos 🎰 para entrenar al bot.
+Actualmente, los usuarios del bot generan con éxito entre el 40-50% de su 💸 capital diariamente.
+¡El bot aún está en pruebas y correcciones! La precisión del bot es del 96.7%.
+¡Nuestro bot es el mejor bot del mundo, con alrededor de 100,000 personas ganando con él diariamente!
+Date prisa para obtener el software gratis antes de que se vuelva de pago 💸 y mientras aún está disponible públicamente 💸❗️
 Para lograr la máxima ganancia, sigue estas instrucciones:
-🟢 1. Regístrate en la casa de apuestas [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id})
+🟢 1. Regístrate en la casa de apuestas 1WIN usando el botón REGISTRO en el bot.
 [Si no se abre, usa una VPN (Suecia). Hay muchos servicios gratuitos en Play Market/App Store, por ejemplo: Vpnify, Planet VPN, Hotspot VPN, etc.!]
 ❗️ Sin registro y código promocional, no se otorgará acceso a las señales ❗️
 🟢 2. Recarga el saldo de tu cuenta.
-🟢 3. Ve a la sección de juegos de 1win y selecciona un juego.
-🟢 4. Configura el número de trampas en tres. ¡Esto es importante!
-🟢 5. Solicita una señal al bot y realiza apuestas según las señales del bot.
-🟢 6. En caso de una señal fallida, recomendamos duplicar (x²) tu apuesta para cubrir completamente la pérdida con la siguiente señal.`,
+🟢 3. Ve a la sección de juegos de 1win y selecciona uno de los juegos (Lucky Jet, Mines, Penalty).
+🟢 4. Solicita una señal al bot y realiza apuestas según las señales del bot.
+🟢 5. En caso de una señal fallida, recomendamos duplicar (x²) tu apuesta para cubrir completamente la pérdida con la siguiente señal.`,
     registration_success: '¡Felicidades por el registro exitoso! 🥳\n🌐 Paso 2 - Realiza tu primer depósito.\n✦ Cuanto mayor sea el depósito, mayor será el NIVEL en el bot, y cuanto mayor sea el nivel, más señales de alta probabilidad recibirás.\n● Recibirás una notificación en el bot después del primer depósito.',
     deposit_button: 'Realizar depósito',
     select_game: 'Seleccionar juego:',
@@ -400,18 +405,19 @@ Botdan foydalanish uchun "Davom etish" tugmasini bosing 👇`,
     register_button: 'Ro‘yxatdan o‘tish',
     back_to_menu: 'Asosiy menyuga qaytish',
     instruction: `🤖 Bot OpenAI klaster neyron tarmog‘ida qurilgan va o‘qitilgan!
-⚜️ Botni o‘qitish uchun 30,000 ta o‘yin 🎰 o‘ynaldi.
-Hozirda bot foydalanuvchilari o‘zlarining 💸 kapitalining 15-25% ni har kuni muvaffaqiyatli ishlab topmoqdalar!
-Bot hali sinov va tuzatishlardan o‘tmoqda! Botning aniqligi 92%!
+⚜️ Botni o‘qitish uchun 33,000+ o‘yin 🎰 o‘ynaldi.
+Hozirda bot foydalanuvchilari o‘zlarining 💸 kapitalining 40-50% ni har kuni muvaffaqiyatli ishlab topmoqdalar!
+Bot hali sinov va tuzatishlardan o‘tmoqda! Botning aniqligi 96,7%!
+Bizning botimiz dunyodagi eng yaxshi bot bo‘lib, unda har kuni taxminan 100,000 kishi daromad qilmoqda!
+Dasturni pullik bo‘lishidan oldin va hali ommaviy foydalanishda ekanida bepul olishga ulguring 💸❗️
 Maksimal daromadga erishish uchun ushbu yo‘riqnomaga amal qiling:
-🟢 1. [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id}) bukmekerlik idorasida ro‘yxatdan o‘ting
+🟢 1. 1WIN bukmekerlik idorasida ro‘yxatdan o‘ting, botdagi RO‘YXATDAN O‘TISH tugmasidan foydalaning.
 [Agar ochilmasa, VPN (Shvetsiya) dan foydalaning. Play Market/App Store da ko‘plab bepul xizmatlar mavjud, masalan: Vpnify, Planet VPN, Hotspot VPN va boshqalar!]
 ❗️ Ro‘yxatdan o‘tish va promo-kodsiz signallarga kirish berilmaydi ❗️
 🟢 2. Hisobingiz balansini to‘ldiring.
-🟢 3. 1win o‘yinlar bo‘limiga o‘ting va o‘yin tanlang.
-🟢 4. Tuzoqlar sonini uchtaga o‘rnating. Bu muhim!
-🟢 5. Botdan signal so‘rang va bot signallariga muvofiq stavka qiling.
-🟢 6. Muvaffaqiyatsiz signal bo‘lsa, keyingi signal bilan yo‘qotishni to‘liq qoplash uchun stavkangizni ikki baravar (x²) qilishni tavsiya qilamiz.`,
+🟢 3. 1win o‘yinlar bo‘limiga o‘ting va o‘yinlardan birini tanlang (Lucky Jet, Mines, Penalty).
+🟢 4. Botdan signal so‘rang va bot signallariga muvofiq stavka qiling.
+🟢 5. Muvaffaqiyatsiz signal bo‘lsa, keyingi signal bilan yo‘qotishni to‘liq qoplash uchun stavkangizni ikki baravar (x²) qilishni tavsiya qilamiz.`,
     registration_success: 'Muvaffaqiyatli ro‘yxatdan o‘tganingiz bilan tabriklaymiz! 🥳\n🌐 2-qadam - Birinchi depozitni kiriting.\n✦ Depozit qanchalik katta bo‘lsa, botda shunchalik yuqori DARAJA bo‘ladi va daraja qanchalik yuqori bo‘lsa, yuqori ehtimolli signallar shunchalik ko‘p bo‘ladi.\n● Birinchi depozit kiritilgandan so‘ng, botda avtomatik xabar olasiz.',
     deposit_button: 'Depozit kiritish',
     select_game: 'O‘yin tanlang:',
@@ -444,18 +450,19 @@ Botdan istifadə etmək üçün "Davam et" düyməsini basın 👇`,
     register_button: 'Qeydiyyatdan keç',
     back_to_menu: 'Əsas menyuya qayıt',
     instruction: `🤖 Bot OpenAI klaster neyron şəbəkəsi əsasında qurulub və öyrədilib!
-⚜️ Botu öyrətmək üçün 30,000 oyun 🎰 oynanılıb.
-Hal-hazırda bot istifadəçiləri öz 💸 kapitalının 15-25%-ni hər gün uğurla qazanırlar!
-Bot hələ də yoxlamalar və düzəlişlərdən keçir! Botun dəqiqliyi 92%-dir!
+⚜️ Botu öyrətmək üçün 33,000+ oyun 🎰 oynanılıb.
+Hal-hazırda bot istifadəçiləri öz 💸 kapitalının 40-50%-ni hər gün uğurla qazanırlar!
+Bot hələ də yoxlamalar və düzəlişlərdən keçir! Botun dəqiqliyi 96,7%-dir!
+Bizim botumuz dünyada ən yaxşı botdur, onunla hər gün təxminən 100,000 nəfər qazanır!
+Proqramı pullu olmadan və hələ də ictimaiyyətə açıq ikən pulsuz əldə etməyə tələsin 💸❗️
 Maksimum qazanc əldə etmək üçün bu təlimata əməl edin:
-🟢 1. [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id}) bukmeker kontorunda qeydiyyatdan keçin
+🟢 1. 1WIN bukmeker kontorunda qeydiyyatdan keçin, botda QEYDIYYAT düyməsindən istifadə edin.
 [Əgər açılmırsa, VPN (İsveç) istifadə edin. Play Market/App Store-da bir çox pulsuz xidmətlər var, məsələn: Vpnify, Planet VPN, Hotspot VPN və s.!]
 ❗️ Qeydiyyat və promo-kod olmadan siqnallara giriş verilməyəcək ❗️
 🟢 2. Hesabınızın balansını artırın.
-🟢 3. 1win oyunlar bölməsinə keçin və oyun seçin.
-🟢 4. Tələlərin sayını üçə təyin edin. Bu vacibdir!
-🟢 5. Botdan siqnal tələb edin və botun siqnallarına uyğun mərc qoyun.
-🟢 6. Uğursuz siqnal olarsa, növbəti siqnal ilə zərəri tam örtmək üçün mərcinizi iki dəfə (x²) artırmağı tövsiyə edirik.`,
+🟢 3. 1win oyunlar bölməsinə keçin və oyunlardan birini seçin (Lucky Jet, Mines, Penalty).
+🟢 4. Botdan siqnal tələb edin və botun siqnallarına uyğun mərc qoyun.
+🟢 5. Uğursuz siqnal olarsa, növbəti siqnal ilə zərəri tam örtmək üçün mərcinizi iki dəfə (x²) artırmağı tövsiyə edirik.`,
     registration_success: 'Uğurlu qeydiyyat münasibətilə təbrik edirik! 🥳\n🌐 2-ci addım - İlk depoziti yatırın.\n✦ Depozit nə qədər böyükdürsə, botda SƏVİYYƏ o qədər yüksəkdir və səviyyə nə qədər yüksəkdirsə, bir o qədər yüksək ehtimallı siqnallar alacaqsınız.\n● İlk depozit yatırıldıqdan sonra botda avtomatik bildiriş alacaqsınız.',
     deposit_button: 'Depozit yatır',
     select_game: 'Oyun seçin:',
@@ -488,18 +495,19 @@ Botu kullanmak için "Devam Et" butonuna tıklayın 👇`,
     register_button: 'Kayıt ol',
     back_to_menu: 'Ana menüye dön',
     instruction: `🤖 Bot, OpenAI'nin küme sinir ağı üzerine inşa edilmiş ve eğitilmiştir!
-⚜️ Botu eğitmek için 30.000 oyun 🎰 oynandı.
-Şu anda bot kullanıcıları, 💸 sermayelerinin %15-25'ini her gün başarıyla kazanıyor!
-Bot hala test ve düzeltmelerden geçiyor! Botun doğruluğu %92'dir!
+⚜️ Botu eğitmek için 33.000+ oyun 🎰 oynandı.
+Şu anda bot kullanıcıları, 💸 sermayelerinin %40-50'sini her gün başarıyla kazanıyor!
+Bot hala test ve düzeltmelerden geçiyor! Botun doğruluğu %96,7!
+Botumuz dünyadaki en iyi bottur, her gün yaklaşık 100.000 kişi onunla kazanıyor!
+Yazılım ücretli hale gelmeden ve hala halka açıkken ücretsiz olarak almaya acele edin 💸❗️
 Maksimum kâr elde etmek için şu talimatları izleyin:
-🟢 1. [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id}) bahis şirketinde kayıt olun
+🟢 1. 1WIN bahis şirketinde kayıt olun, botta KAYIT butonunu kullanın.
 [Açılmazsa, VPN (İsveç) kullanın. Play Market/App Store'da birçok ücretsiz hizmet var, örneğin: Vpnify, Planet VPN, Hotspot VPN vb.!]
 ❗️ Kayıt ve promosyon kodu olmadan sinyallere erişim verilmez ❗️
 🟢 2. Hesabınızın bakiyesini doldurun.
-🟢 3. 1win oyunlar bölümüne gidin ve bir oyun seçin.
-🟢 4. Tuzak sayısını üçe ayarlayın. Bu önemli!
-🟢 5. Bottan sinyal talep edin ve botun sinyallerine göre bahis yapın.
-🟢 6. Başarısız bir sinyal durumunda, kaybı tamamen telafi etmek için bir sonraki sinyalle bahsinizi ikiye katlamanızı (x²) öneririz.`,
+🟢 3. 1win oyunlar bölümüne gidin ve oyunlardan birini seçin (Lucky Jet, Mines, Penalty).
+🟢 4. Bottan sinyal talep edin ve botun sinyallerine göre bahis yapın.
+🟢 5. Başarısız bir sinyal durumunda, kaybı tamamen telafi etmek için bir sonraki sinyalle bahsinizi ikiye katlamanızı (x²) öneririz.`,
     registration_success: 'Başarılı kayıt için tebrikler! 🥳\n🌐 Adım 2 - İlk para yatırmayı yap.\n✦ Yatırım ne kadar büyükse, botta SEVİYE o kadar yüksek olur ve seviye ne kadar yüksekse, o kadar çok yüksek olasılıklı sinyal alırsınız.\n● İlk para yatırma işleminden sonra bota otomatik bir bildirim alacaksınız.',
     deposit_button: 'Para yatır',
     select_game: 'Oyun seç:',
