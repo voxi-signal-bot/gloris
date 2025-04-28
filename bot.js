@@ -6,9 +6,9 @@ const Database = require('better-sqlite3');
 // Настройки бота
 const BOT_TOKEN = '7972214608:AAHs-_2wModvEWKeEcYyEHHgV4nQaQGNgBk';
 const CHANNEL_ID = '@xuiuugg';
-const MINI_APP_URL = 'https://gloris-production.up.railway.app/miniapp';
+const MINI_APP_URL = 'https://voxi-mini-app-production.up.railway.app';
 const APP_URL = 'https://gloris-production.up.railway.app';
-const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo&promocode=VIP662';
+const REFERRAL_BASE_LINK = 'https://1wgxql.com/v3/aggressive-casino?p=qmgo';
 
 const bot = new Telegraf(BOT_TOKEN);
 const app = express();
@@ -161,13 +161,13 @@ app.get('/postback', async (req, res) => {
 // Сообщения на разных языках
 const messages = {
   ru: {
-    welcome: `Добро пожаловать в Voxy_Soft🤖!
+    welcome: 'Добро пожаловать в Voxy_Soft🤖!
 
 Мы скрестили нейросети: легко обучаемую CLAUD-3.5 и самый умный CHAT-GPT! 🤖
 
-🔎 Теперь мы можем анализировать и предсказывать коэффициенты в игре Lucky Jet, угадывать клетки Mines, угадывать куда бить мяч в Penalty с минимальными погрешностями.
+🔎 Теперь мы можем анализировать и предсказывать коэффициенты в игре Lucky Jet, угадывать клетки Mines, угадывать куда бить мяч в Penalty с минимальными погрешностями. 
 
-🎮 Всего было сыграно: 33.000+ игр, из них 96,7% оказались предсказаны верно!
+🎮 Всего было сыграно: 33.000+ игр, из них 96,7% оказались предсказаны верно! 
 
 🍀 Никаких ограничений нет, получить бан невозможно!
 
@@ -175,7 +175,7 @@ const messages = {
 
 🏆 Так же ведется еженедельный рейтинг из всех участников нашего бота. Игрок, выигравший больше за неделю получает большие призы от нашего канала!
 
-Для использования бота нажмите "Продолжить" 👇`,
+Для использования бота нажмите "Продолжить" 👇',
     continue_button: 'Продолжить',
     main_menu: 'Главное меню:',
     registration_button: '📱Регистрация',
@@ -212,7 +212,7 @@ LUCKY JET - это игра, в которой вы должны сделать 
     get_signal: 'ПОЛУЧИТЬ СИГНАЛ'
   },
   en: {
-    welcome: `Welcome to Voxy_Soft🤖!
+    welcome: 'Welcome to Voxy_Soft🤖!
 
 We’ve combined neural networks: the easily trainable CLAUD-3.5 and the smartest CHAT-GPT! 🤖
 
@@ -226,7 +226,7 @@ We’ve combined neural networks: the easily trainable CLAUD-3.5 and the smartes
 
 🏆 We also maintain a weekly ranking of all bot participants. The player who wins the most in a week receives big prizes from our channel!
 
-To use the bot, click "Continue" 👇`,
+To use the bot, click "Continue" 👇',
     continue_button: 'Continue',
     main_menu: 'Main menu:',
     registration_button: '📱Registration',
@@ -263,7 +263,7 @@ Our bot can help determine the optimal moment to bet!`,
     get_signal: 'GET SIGNAL'
   },
   hi: {
-    welcome: `वॉक्सी_सॉफ्ट में आपका स्वागत है🤖!
+    welcome: 'वॉक्सी_सॉफ्ट में आपका स्वागत है🤖!
 
 हमने न्यूरल नेटवर्क को मिला दिया है: आसानी से प्रशिक्षित होने वाला CLAUD-3.5 और सबसे बुद्धिमान CHAT-GPT! 🤖
 
@@ -277,7 +277,7 @@ Our bot can help determine the optimal moment to bet!`,
 
 🏆 हम अपने बॉट के सभी प्रतिभागियों का साप्ताहिक रैंकिंग भी रखते हैं। जो खिलाड़ी सप्ताह में सबसे अधिक जीतता है, उसे हमारे चैनल से बड़े पुरस्कार मिलते हैं!
 
-बॉट का उपयोग करने के लिए "जारी रखें" पर क्लिक करें 👇`,
+बॉट का उपयोग करने के लिए "जारी रखें" पर क्लिक करें 👇',
     continue_button: 'जारी रखें',
     main_menu: 'मुख्य मेनू:',
     registration_button: '📱पंजीकरण',
@@ -314,7 +314,7 @@ LUCKY JET एक ऐसा गेम है जिसमें आपको र�
     get_signal: 'सिग्नल प्राप्त करें'
   },
   pt: {
-    welcome: `Bem-vindo ao Voxy_Soft🤖!
+    welcome: 'Bem-vindo ao Voxy_Soft🤖!
 
 Combinamos redes neurais: o facilmente treinável CLAUD-3.5 e o mais inteligente CHAT-GPT! 🤖
 
@@ -328,7 +328,7 @@ Combinamos redes neurais: o facilmente treinável CLAUD-3.5 e o mais inteligente
 
 🏆 Também mantemos um ranking semanal de todos os participantes do nosso bot. O jogador que ganhar mais na semana recebe grandes prêmios do nosso canal!
 
-Para usar o bot, clique em "Continuar" 👇`,
+Para usar o bot, clique em "Continuar" 👇',
     continue_button: 'Continuar',
     main_menu: 'Menu principal:',
     registration_button: '📱Registro',
@@ -365,7 +365,7 @@ Nosso bot pode ajudar a determinar o momento ideal para apostar!`,
     get_signal: 'OBTER SINAL'
   },
   es: {
-    welcome: `¡Bienvenido a Voxy_Soft🤖!
+    welcome: '¡Bienvenido a Voxy_Soft🤖!
 
 Hemos combinado redes neuronales: el fácilmente entrenable CLAUD-3.5 y el más inteligente CHAT-GPT! 🤖
 
@@ -379,7 +379,7 @@ Hemos combinado redes neuronales: el fácilmente entrenable CLAUD-3.5 y el más 
 
 🏆 También mantenemos un ranking semanal de todos los participantes de nuestro bot. ¡El jugador que gane más en una semana recibe grandes premios de nuestro canal!
 
-Para usar el bot, haz clic en "Continuar" 👇`,
+Para usar el bot, haz clic en "Continuar" 👇',
     continue_button: 'Continuar',
     main_menu: 'Menú principal:',
     registration_button: '📱Registro',
@@ -416,7 +416,7 @@ Cuanto más esperes, más puedes ganar, pero si el cohete despega antes de que r
     get_signal: 'OBTENER SEÑAL'
   },
   uz: {
-    welcome: `Voxy_Softga xush kelibsiz🤖!
+    welcome: 'Voxy_Softga xush kelibsiz🤖!
 
 Biz neyron tarmoqlarni birlashtirdik: oson o‘qitiladigan CLAUD-3.5 va eng aqlli CHAT-GPT! 🤖
 
@@ -430,7 +430,7 @@ Biz neyron tarmoqlarni birlashtirdik: oson o‘qitiladigan CLAUD-3.5 va eng aqll
 
 🏆 Shuningdek, bizning botimizdagi barcha ishtirokchilarning haftalik reytingi yuritiladi. Haftada eng ko‘p yutgan o‘yinchi bizning kanalimizdan katta sovg‘alar oladi!
 
-Botdan foydalanish uchun "Davom etish" tugmasini bosing 👇`,
+Botdan foydalanish uchun "Davom etish" tugmasini bosing 👇',
     continue_button: 'Davom etish',
     main_menu: 'Asosiy menyu:',
     registration_button: '📱Ro‘yxatdan o‘tish',
@@ -462,4 +462,394 @@ Maksimal daromadga erishish uchun ushbu yo‘riqnomaga amal qiling:
     mines_button: 'MINES',
     luckyjet_welcome: `VOXI SIGNAL LUCKY JETga xush kelibsiz
 LUCKY JET - bu siz raketa uchib ketishidan oldin o‘sib borayotgan koeffitsientga stavka qo‘yishingiz kerak bo‘lgan o‘yin.
-Qancha uzoq kutsangiz, shuncha ko‘p yutishingiz mumkin, lekin agar siz stav
+Qancha uzoq kutsangiz, shuncha ko‘p yutishingiz mumkin, lekin agar siz stavkangizni yechib olishdan oldin raketa uchib ketsa, yutqazasiz.
+Bizning botimiz stavka qo‘yish uchun eng maqbul vaqtni aniqlashga yordam beradi!`,
+    get_signal: 'SIGNAL OLISH'
+  },
+  az: {
+    welcome: 'Voxy_Soft-a xoş gəlmisiniz🤖!
+
+Biz neyron şəbəkələri birləşdirdik: asanlıqla öyrədilən CLAUD-3.5 və ən ağıllı CHAT-GPT! 🤖
+
+🔎 İndi biz Lucky Jet oyununda əmsalları təhlil edə və proqnozlaşdıra bilərik, Mines hüceyrələrini təxmin edə bilərik və Penalty-də topu hara vurmaq lazım olduğunu minimal səhvlərlə müəyyən edə bilərik.
+
+🎮 Cəmi 33,000+ oyun oynanılıb, onlardan 96,7%-i düzgün proqnozlaşdırılıb!
+
+🍀 Heç bir məhdudiyyət yoxdur və ban almaq mümkün deyil!
+
+🎯 Neyron şəbəkənin dəqiqliyi 96,7%-dir!
+
+🏆 Həmçinin botumuzun bütün iştirakçıları arasında həftəlik reytinq aparılır. Həftə ərzində ən çox qazanan oyunçu kanalımızdan böyük hədiyyələr alır!
+
+Botdan istifadə etmək üçün "Davam et" düyməsini basın 👇',
+    continue_button: 'Davam et',
+    main_menu: 'Əsas menyu:',
+    registration_button: '📱Qeydiyyat',
+    instruction_button: '📚Təlimat',
+    select_language_button: '🌐Dil seç',
+    help_button: '🆘Help',
+    get_signal_button: '⚜️Siqnal al⚜️',
+    registration_error: '⚠️ Xəta: Qeydiyyat tamamlanmadı!\n\n✦ Qeydiyyat zamanı promo-kod - VIP662 daxil etmək mütləqdir\n\n● Qeydiyyat tamamlandıqdan sonra botda avtomatik bildiriş alacaqsınız.',
+    register_button: 'Qeydiyyatdan keç',
+    back_to_menu: 'Əsas menyuya qayıt',
+    instruction: `🤖 Bot OpenAI klaster neyron şəbəkəsi əsasında qurulub və öyrədilib!
+⚜️ Botu öyrətmək üçün 30,000 oyun 🎰 oynanılıb.
+Hal-hazırda bot istifadəçiləri öz 💸 kapitalının 15-25%-ni hər gün uğurla qazanırlar!
+Bot hələ də yoxlamalar və düzəlişlərdən keçir! Botun dəqiqliyi 92%-dir!
+Maksimum qazanc əldə etmək üçün bu təlimata əməl edin:
+🟢 1. [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id}) bukmeker kontorunda qeydiyyatdan keçin
+[Əgər açılmırsa, VPN (İsveç) istifadə edin. Play Market/App Store-da bir çox pulsuz xidmətlər var, məsələn: Vpnify, Planet VPN, Hotspot VPN və s.!]
+❗️ Qeydiyyat və promo-kod olmadan siqnallara giriş verilməyəcək ❗️
+🟢 2. Hesabınızın balansını artırın.
+🟢 3. 1win oyunlar bölməsinə keçin və oyun seçin.
+🟢 4. Tələlərin sayını üçə təyin edin. Bu vacibdir!
+🟢 5. Botdan siqnal tələb edin və botun siqnallarına uyğun mərc qoyun.
+🟢 6. Uğursuz siqnal olarsa, növbəti siqnal ilə zərəri tam örtmək üçün mərcinizi iki dəfə (x²) artırmağı tövsiyə edirik.`,
+    registration_success: 'Uğurlu qeydiyyat münasibətilə təbrik edirik! 🥳\n🌐 2-ci addım - İlk depoziti yatırın.\n✦ Depozit nə qədər böyükdürsə, botda SƏVİYYƏ o qədər yüksəkdir və səviyyə nə qədər yüksəkdirsə, bir o qədər yüksək ehtimallı siqnallar alacaqsınız.\n● İlk depozit yatırıldıqdan sonra botda avtomatik bildiriş alacaqsınız.',
+    deposit_button: 'Depozit yatır',
+    select_game: 'Oyun seçin:',
+    aviator_button: 'AVIATOR',
+    luckyjet_button: 'LUCKY JET',
+    mines_button: 'MINES',
+    luckyjet_welcome: `VOXI SIGNAL LUCKY JET-ə xoş gəlmisiniz
+LUCKY JET, raketin uçmasından əvvəl artan əmsala mərc qoymalısınız.
+Nə qədər çox gözləsəniz, bir o qədər çox qazana bilərsiniz, amma əgər mərcinizi çıxarmadan raket uçarsa, uduzarsınız.
+Bizim botumuz mərc qoymaq üçün optimal anı müəyyənləşdirməyə kömək edə bilər!`,
+    get_signal: 'SIQNAL AL'
+  },
+  tr: {
+    welcome: "Voxy_Soft'a hoş geldiniz🤖!
+
+Sinir ağlarını birleştirdik: kolayca eğitilebilen CLAUD-3.5 ve en zeki CHAT-GPT! 🤖
+
+🔎 Artık Lucky Jet oyununda çarpanları analiz edebilir ve tahmin edebilir, Mines hücrelerini tahmin edebilir ve Penalty'de topu nereye vuracağınızı minimum hatalarla belirleyebiliriz.
+
+🎮 Toplamda 33.000+ oyun oynandı, bunların %96,7'si doğru tahmin edildi!
+
+🍀 Hiçbir kısıtlama yok ve ban almak imkansız!
+
+🎯 Sinir ağının doğruluğu %96,7!
+
+🏆 Ayrıca botumuzun tüm katılımcıları arasında haftalık bir sıralama tutuluyor. Hafta boyunca en çok kazanan oyuncu, kanalımızdan büyük ödüller alıyor!
+
+Botu kullanmak için "Devam Et" butonuna tıklayın 👇",
+    continue_button: 'Devam Et',
+    main_menu: 'Ana menü:',
+    registration_button: '📱Kayıt',
+    instruction_button: '📚Talimatlar',
+    select_language_button: '🌐Dil seç',
+    help_button: '🆘Help',
+    get_signal_button: '⚜️Sinyal al⚜️',
+    registration_error: '⚠️ Hata: Kayıt tamamlanmadı!\n\n✦ Kayıt sırasında promosyon kodu - VIP662 girmek zorunludur\n\n● Kayıt tamamlandıktan sonra bota otomatik bir bildirim alacaksınız.',
+    register_button: 'Kayıt ol',
+    back_to_menu: 'Ana menüye dön',
+    instruction: `🤖 Bot, OpenAI'nin küme sinir ağı üzerine inşa edilmiş ve eğitilmiştir!
+⚜️ Botu eğitmek için 30.000 oyun 🎰 oynandı.
+Şu anda bot kullanıcıları, 💸 sermayelerinin %15-25'ini her gün başarıyla kazanıyor!
+Bot hala test ve düzeltmelerden geçiyor! Botun doğruluğu %92'dir!
+Maksimum kâr elde etmek için şu talimatları izleyin:
+🟢 1. [1WIN](${REFERRAL_BASE_LINK}&sub1={user_id}) bahis şirketinde kayıt olun
+[Açılmazsa, VPN (İsveç) kullanın. Play Market/App Store'da birçok ücretsiz hizmet var, örneğin: Vpnify, Planet VPN, Hotspot VPN vb.!]
+❗️ Kayıt ve promosyon kodu olmadan sinyallere erişim verilmez ❗️
+🟢 2. Hesabınızın bakiyesini doldurun.
+🟢 3. 1win oyunlar bölümüne gidin ve bir oyun seçin.
+🟢 4. Tuzak sayısını üçe ayarlayın. Bu önemli!
+🟢 5. Bottan sinyal talep edin ve botun sinyallerine göre bahis yapın.
+🟢 6. Başarısız bir sinyal durumunda, kaybı tamamen telafi etmek için bir sonraki sinyalle bahsinizi ikiye katlamanızı (x²) öneririz.`,
+    registration_success: 'Başarılı kayıt için tebrikler! 🥳\n🌐 Adım 2 - İlk para yatırmayı yap.\n✦ Yatırım ne kadar büyükse, botta SEVİYE o kadar yüksek olur ve seviye ne kadar yüksekse, o kadar çok yüksek olasılıklı sinyal alırsınız.\n● İlk para yatırma işleminden sonra bota otomatik bir bildirim alacaksınız.',
+    deposit_button: 'Para yatır',
+    select_game: 'Oyun seç:',
+    aviator_button: 'AVIATOR',
+    luckyjet_button: 'LUCKY JET',
+    mines_button: 'MINES',
+    luckyjet_welcome: `VOXI SIGNAL LUCKY JET'e hoŞ geldiniz
+LUCKY JET, roket uçmadan önce artan bir çarpana bahis yapmanız gereken bir oyundur.
+Ne kadar uzun beklerseniz, o kadar çok kazanabilirsiniz, ancak roket siz bahsi çekmeden uçarsa, kaybedersiniz.
+Botumuz, bahis yapmak için en uygun anı belirlemenize yardımcı olabilir!`,
+    get_signal: 'SİNYAL AL'
+  }
+};
+
+// Функция для получения сообщения на нужном языке
+function getMessage(key, lang, user_id = '') {
+  let message = messages[lang]?.[key] || messages.ru[key];
+  if (user_id) message = message.replace('{user_id}', user_id);
+  return message;
+}
+
+// Команда /start
+bot.start(async (ctx) => {
+  const chatId = String(ctx.chat.id); // Приводим к строке
+  console.log(`Processing /start for user ${chatId}`);
+  const row = checkUserStatus(chatId);
+  if (!row) {
+    ensureUserExists(chatId); // Создаём пользователя
+    ctx.reply('Выберите язык / Select language:', {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: 'Русский 🇷🇺', callback_data: 'lang_ru' }, { text: 'English 🇬🇧', callback_data: 'lang_en' }],
+          [{ text: 'हिन्दी 🇮🇳', callback_data: 'lang_hi' }, { text: 'Português 🇧🇷', callback_data: 'lang_pt' }],
+          [{ text: 'Español 🇪🇸', callback_data: 'lang_es' }, { text: 'Oʻzbek 🇺🇿', callback_data: 'lang_uz' }],
+          [{ text: 'Azərbaycan 🇦🇿', callback_data: 'lang_az' }, { text: 'Türkçe 🇹🇷', callback_data: 'lang_tr' }]
+        ]
+      }
+    }).catch(err => console.error('Error sending language selection:', err));
+  } else {
+    await sendWelcomeMessage(ctx, row.language || 'ru');
+  }
+});
+
+// Обработка callback-запросов
+bot.on('callback_query', async (ctx) => {
+  const chatId = String(ctx.chat.id); // Приводим к строке
+  const data = ctx.callbackQuery.data;
+  console.log(`Received callback query: ${data} from user ${chatId}`);
+
+  if (data.startsWith('lang_')) {
+    const lang = data.split('_')[1];
+    const stmt = db.prepare(`UPDATE users SET language = ? WHERE user_id = ?`);
+    stmt.run(lang, chatId);
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    await sendWelcomeMessage(ctx, lang);
+  } else if (data === 'continue') {
+    console.log(`User ${chatId} clicked Continue, sending main menu`);
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    await sendMainMenu(ctx, getUserLanguage(chatId));
+  } else if (data === 'main_menu') {
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    await sendMainMenu(ctx, getUserLanguage(chatId));
+  } else if (data === 'registration') {
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    const lang = getUserLanguage(chatId);
+    ctx.replyWithPhoto('https://i.imgur.com/QouqMUC.jpeg', {
+      caption: getMessage('registration_error', lang),
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+          [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+        ]
+      }
+    }).catch(err => {
+      console.error('Error sending registration error with photo:', err);
+      ctx.reply(getMessage('registration_error', lang), {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+            [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+          ]
+        }
+      }).catch(fallbackErr => console.error('Error sending fallback registration error:', fallbackErr));
+    });
+  } else if (data === 'instruction') {
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    const lang = getUserLanguage(chatId);
+    ctx.reply(getMessage('instruction', lang, chatId), {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+        ]
+      }
+    }).catch(err => console.error('Error sending instruction:', err));
+  } else if (data === 'select_language') {
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    ctx.reply('Выберите язык / Select language:', {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: 'Русский 🇷🇺', callback_data: 'lang_ru' }, { text: 'English 🇬🇧', callback_data: 'lang_en' }],
+          [{ text: 'हिन्दी 🇮🇳', callback_data: 'lang_hi' }, { text: 'Português 🇧🇷', callback_data: 'lang_pt' }],
+          [{ text: 'Español 🇪🇸', callback_data: 'lang_es' }, { text: 'Oʻzbek 🇺🇿', callback_data: 'lang_uz' }],
+          [{ text: 'Azərbaycan 🇦🇿', callback_data: 'lang_az' }, { text: 'Türkçe 🇹🇷', callback_data: 'lang_tr' }]
+        ]
+      }
+    }).catch(err => console.error('Error sending language selection:', err));
+  } else if (data === 'help') {
+    ctx.reply('Свяжитесь с поддержкой / Contact support:', {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: 'Support', url: 'https://t.me/Soft1win1' }]
+        ]
+      }
+    }).catch(err => console.error('Error sending help:', err));
+  } else if (data === 'get_signal') {
+    try {
+      const row = checkUserStatus(chatId);
+      console.log(`User ${chatId} status - registered: ${row?.registered}, deposited: ${row?.deposited}`);
+      const lang = getUserLanguage(chatId);
+      if (!row?.registered) {
+        await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+        ctx.replyWithPhoto('https://i.imgur.com/QouqMUC.jpeg', {
+          caption: getMessage('registration_error', lang),
+          reply_markup: {
+            inline_keyboard: [
+              [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+              [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+            ]
+          }
+        }).catch(err => {
+          console.error('Error sending registration error with photo:', err);
+          ctx.reply(getMessage('registration_error', lang), {
+            reply_markup: {
+              inline_keyboard: [
+                [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+                [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+              ]
+            }
+          }).catch(fallbackErr => console.error('Error sending fallback registration error:', fallbackErr));
+        });
+      } else if (!row.deposited) {
+        await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+        ctx.replyWithPhoto('https://i.imgur.com/eABK5if.jpeg', {
+          caption: getMessage('registration_success', lang),
+          reply_markup: {
+            inline_keyboard: [
+              [{ text: getMessage('deposit_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+              [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+            ]
+          }
+        }).catch(err => {
+          console.error('Error sending deposit prompt with photo:', err);
+          ctx.reply(getMessage('registration_success', lang), {
+            reply_markup: {
+              inline_keyboard: [
+                [{ text: getMessage('deposit_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+                [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+              ]
+            }
+          }).catch(fallbackErr => console.error('Error sending fallback deposit prompt:', fallbackErr));
+        });
+      } else {
+        await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+        ctx.reply(getMessage('select_game', lang), {
+          reply_markup: {
+            inline_keyboard: [
+              [{ text: getMessage('aviator_button', lang), callback_data: 'game_aviator' }],
+              [{ text: getMessage('luckyjet_button', lang), callback_data: 'game_luckyjet' }],
+              [{ text: getMessage('mines_button', lang), callback_data: 'game_mines' }]
+            ]
+          }
+        }).catch(err => console.error('Error sending game selection:', err));
+      }
+    } catch (err) {
+      console.error('Error checking user status:', err);
+      ctx.reply('Ошибка базы данных. Попробуйте позже.');
+    }
+  } else if (data === 'game_aviator' || data === 'game_mines') {
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    const lang = getUserLanguage(chatId);
+    ctx.reply('Этот раздел находится в разработке. Пожалуйста, выберите LUCKY JET.', {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: getMessage('luckyjet_button', lang), callback_data: 'game_luckyjet' }],
+          [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+        ]
+      }
+    }).catch(err => console.error('Error sending placeholder message:', err));
+  } else if (data === 'game_luckyjet') {
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    const lang = getUserLanguage(chatId);
+    ctx.replyWithPhoto('https://i.imgur.com/KF1GgYS.jpeg', {
+      caption: getMessage('luckyjet_welcome', lang),
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: getMessage('get_signal', lang), url: MINI_APP_URL }]
+        ]
+      }
+    }).catch(err => {
+      console.error('Error sending Lucky Jet message with photo:', err);
+      ctx.reply(getMessage('luckyjet_welcome', lang), {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: getMessage('get_signal', lang), url: MINI_APP_URL }]
+          ]
+        }
+      }).catch(fallbackErr => console.error('Error sending fallback Lucky Jet message:', fallbackErr));
+    });
+  }
+  ctx.answerCbQuery().catch(err => console.error('Error answering callback:', err));
+});
+
+// Приветственное сообщение
+async function sendWelcomeMessage(ctx, lang) {
+  const chatId = String(ctx.chat.id); // Приводим к строке
+  console.log(`Sending welcome message to user ${chatId} with language ${lang}`);
+  ctx.reply(getMessage('welcome', lang), {
+    reply_markup: {
+      inline_keyboard: [
+        [{ text: getMessage('continue_button', lang), callback_data: 'continue' }]
+      ]
+    }
+  }).catch(err => console.error('Error sending welcome message:', err));
+}
+
+// Главное меню с фотографией и кнопками в два столбца
+async function sendMainMenu(ctx, lang) {
+  const chatId = String(ctx.chat.id); // Приводим к строке
+  console.log(`Sending main menu to user ${chatId} with language ${lang}`);
+  ctx.replyWithPhoto('https://i.imgur.com/x8J6K8l.png', {
+    caption: getMessage('main_menu', lang),
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: getMessage('registration_button', lang), callback_data: 'registration' },
+          { text: getMessage('instruction_button', lang), callback_data: 'instruction' }
+        ],
+        [
+          { text: getMessage('select_language_button', lang), callback_data: 'select_language' },
+          { text: getMessage('help_button', lang), callback_data: 'help' }
+        ],
+        [
+          { text: getMessage('get_signal_button', lang), callback_data: 'get_signal' }
+        ]
+      ]
+    }
+  }).catch(err => {
+    console.error('Error sending main menu with photo:', err);
+    ctx.reply(getMessage('main_menu', lang), {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            { text: getMessage('registration_button', lang), callback_data: 'registration' },
+            { text: getMessage('instruction_button', lang), callback_data: 'instruction' }
+          ],
+          [
+            { text: getMessage('select_language_button', lang), callback_data: 'select_language' },
+            { text: getMessage('help_button', lang), callback_data: 'help' }
+          ],
+          [
+            { text: getMessage('get_signal_button', lang), callback_data: 'get_signal' }
+          ]
+        ]
+      }
+    }).catch(fallbackErr => console.error('Error sending fallback main menu:', fallbackErr));
+  });
+}
+
+// Глобальный обработчик ошибок
+bot.catch((err, ctx) => {
+  console.error(`Error for ${ctx.updateType}:`, err);
+  ctx.reply('Произошла ошибка. Попробуйте позже.');
+});
+
+// Запуск сервера
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  const isProduction = process.env.NODE_ENV === 'production';
+  if (isProduction) {
+    bot.telegram.setWebhook(`${APP_URL}/webhook`).then(() => {
+      console.log(`Webhook set to ${APP_URL}/webhook`);
+    }).catch(err => console.error('Error setting webhook:', err));
+    app.use(bot.webhookCallback('/webhook'));
+  } else {
+    bot.launch().then(() => {
+      console.log('Bot started in polling mode');
+    }).catch(err => console.error('Error starting bot:', err));
+  }
+});
+
+// Закрытие базы данных при завершении работы
+process.on('SIGINT', () => {
+  db.close();
+  console.log('Database closed');
+  process.exit(0);
+});
