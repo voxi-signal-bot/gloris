@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const Database = require('better-sqlite3');
 
 // Настройки бота
-const BOT_TOKEN = '8145387934:AAFiFPUfKH0EwYST6ShOFdBSm6IvwhPkEqY';
+const BOT_TOKEN = '7972214608:AAHs-_2wModvEWKeEcYyEHHgV4nQaQGNgBk';
 const CHANNEL_ID = '@xuiuugg';
 const MINI_APP_URL = 'https://voxi-mini-app-production.up.railway.app';
 const APP_URL = 'https://gloris-production.up.railway.app';
