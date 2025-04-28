@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const Database = require('better-sqlite3');
 
 // Настройки бота
-const BOT_TOKEN = '7972214608:AAHs-_2wModvEWKeEcYyEHHgV4nQaQGNgBk';
+const BOT_TOKEN = '';
 const CHANNEL_ID = '@xuiuugg';
 const MINI_APP_URL = 'https://voxi-mini-app-production.up.railway.app';
 const APP_URL = 'https://gloris-production.up.railway.app';
@@ -383,7 +383,7 @@ Cuanto más esperes, más puedes ganar, pero si el cohete despega antes de que r
   uz: {
     welcome: `Voxy_Softga xush kelibsiz🤖!
 Biz neyron tarmoqlarni birlashtirdik: oson o‘qitiladigan CLAUD-3.5 va eng aqlli CHAT-GPT! 🤖
-🔎 Endi biz Lucky Jet o‘yinidagi koeffitsientlarni tahlil qila va bashorat qila olamiz, Mines kataklarini taxmin qila olamiz va PenalTyda to‘pni qayerga tepish kerakligini minimal xatolar bilan aniqlay olamiz.
+🔎 Endi biz Lucky Jet o‘yinidagi koeffitsientlarni tahlil qila va bashorat qila olamiz, Mines kataklarini taxmin qila olamiz va Penaltyda to‘pni qayerga tepish kerakligini minimal xatolar bilan aniqlay olamiz.
 🎮 Jami 33,000+ o‘yin o‘ynaldi, ulardan 96,7% to‘g‘ri bashorat qilindi!
 🍀 Hech qanday cheklovlar yo‘q, va ban olish mumkin emas!
 🎯 Neyron tarmoqning aniqligi 96,7%!
@@ -500,7 +500,7 @@ Maksimum kâr elde etmek için şu talimatları izleyin:
 🟢 4. Tuzak sayısını üçe ayarlayın. Bu önemli!
 🟢 5. Bottan sinyal talep edin ve botun sinyallerine göre bahis yapın.
 🟢 6. Başarısız bir sinyal durumunda, kaybı tamamen telafi etmek için bir sonraki sinyalle bahsinizi ikiye katlamanızı (x²) öneririz.`,
-    registration_success: 'Başarılı kayıt için tebrikler! 🥳\n🌐 Adım 2 - İlk para yatırmayı yap.\n✦ Yatırım ne kadar büyükse, botta SEVİYE o kadar yüksek olur ve seviye ne kadar yüksekse, o kadar çok yüksek olasılıklı sinyal alırsınız.\n● İlk para yatırma işleminden sonra bota otomatik bir bildirim alacaksınız.',
+ registration_success: 'Başarılı kayıt için tebrikler! 🥳\n🌐 Adım 2 - İlk para yatırmayı yap.\n✦ Yatırım ne kadar büyükse, botta SEVİYE o kadar yüksek olur ve seviye ne kadar yüksekse, o kadar çok yüksek olasılıklı sinyal alırsınız.\n● İlk para yatırma işleminden sonra bota otomatik bir bildirim alacaksınız.',
     deposit_button: 'Para yatır',
     select_game: 'Oyun seç:',
     aviator_button: 'AVIATOR',
@@ -560,4 +560,241 @@ bot.on('callback_query', async (ctx) => {
     await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
     await sendMainMenu(ctx, getUserLanguage(chatId));
   } else if (data === 'main_menu') {
-    await ctx.deleteMessage().catch(err => console.error('Error
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    await sendMainMenu(ctx, getUserLanguage(chatId));
+  } else if (data === 'registration') {
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    const lang = getUserLanguage(chatId);
+    ctx.replyWithPhoto('https://i.imgur.com/QouqMUC.jpeg', {
+      caption: getMessage('registration_error', lang),
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+          [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+        ]
+      }
+    }).catch(err => {
+      console.error('Error sending registration error with photo:', err);
+      ctx.reply(getMessage('registration_error', lang), {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+            [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+          ]
+        }
+      }).catch(fallbackErr => console.error('Error sending fallback registration error:', fallbackErr));
+    });
+  } else if (data === 'instruction') {
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    const lang = getUserLanguage(chatId);
+    ctx.reply(getMessage('instruction', lang, chatId), {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+        ]
+      }
+    }).catch(err => console.error('Error sending instruction:', err));
+  } else if (data === 'select_language') {
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    ctx.reply('Выберите язык / Select language:', {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: 'Русский 🇷🇺', callback_data: 'lang_ru' }, { text: 'English 🇬🇧', callback_data: 'lang_en' }],
+          [{ text: 'हिन्दी 🇮🇳', callback_data: 'lang_hi' }, { text: 'Português 🇧🇷', callback_data: 'lang_pt' }],
+          [{ text: 'Español 🇪🇸', callback_data: 'lang_es' }, { text: 'Oʻzbek 🇺🇿', callback_data: 'lang_uz' }],
+          [{ text: 'Azərbaycan 🇦🇿', callback_data: 'lang_az' }, { text: 'Türkçe 🇹🇷', callback_data: 'lang_tr' }]
+        ]
+      }
+    }).catch(err => console.error('Error sending language selection:', err));
+  } else if (data === 'help') {
+    ctx.reply('Свяжитесь с поддержкой / Contact support:', {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: 'Support', url: 'https://t.me/Soft1win1' }]
+        ]
+      }
+    }).catch(err => console.error('Error sending help:', err));
+  } else if (data === 'get_signal') {
+    try {
+      const row = checkUserStatus(chatId);
+      console.log(`User ${chatId} status - registered: ${row?.registered}, deposited: ${row?.deposited}`);
+      const lang = getUserLanguage(chatId);
+      if (!row?.registered) {
+        await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+        ctx.replyWithPhoto('https://i.imgur.com/QouqMUC.jpeg', {
+          caption: getMessage('registration_error', lang),
+          reply_markup: {
+            inline_keyboard: [
+              [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+              [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+            ]
+          }
+        }).catch(err => {
+          console.error('Error sending registration error with photo:', err);
+          ctx.reply(getMessage('registration_error', lang), {
+            reply_markup: {
+              inline_keyboard: [
+                [{ text: getMessage('register_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+                [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+              ]
+            }
+          }).catch(fallbackErr => console.error('Error sending fallback registration error:', fallbackErr));
+        });
+      } else if (!row.deposited) {
+        await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+        ctx.replyWithPhoto('https://i.imgur.com/eABK5if.jpeg', {
+          caption: getMessage('registration_success', lang),
+          reply_markup: {
+            inline_keyboard: [
+              [{ text: getMessage('deposit_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+              [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+            ]
+          }
+        }).catch(err => {
+          console.error('Error sending deposit prompt with photo:', err);
+          ctx.reply(getMessage('registration_success', lang), {
+            reply_markup: {
+              inline_keyboard: [
+                [{ text: getMessage('deposit_button', lang), url: `${REFERRAL_BASE_LINK}&sub1=${chatId}` }],
+                [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+              ]
+            }
+          }).catch(fallbackErr => console.error('Error sending fallback deposit prompt:', fallbackErr));
+        });
+      } else {
+        await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+        ctx.reply(getMessage('select_game', lang), {
+          reply_markup: {
+            inline_keyboard: [
+              [{ text: getMessage('aviator_button', lang), callback_data: 'game_aviator' }],
+              [{ text: getMessage('luckyjet_button', lang), callback_data: 'game_luckyjet' }],
+              [{ text: getMessage('mines_button', lang), callback_data: 'game_mines' }]
+            ]
+          }
+        }).catch(err => console.error('Error sending game selection:', err));
+      }
+    } catch (err) {
+      console.error('Error checking user status:', err);
+      ctx.reply('Ошибка базы данных. Попробуйте позже.');
+    }
+  } else if (data === 'game_aviator' || data === 'game_mines') {
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    const lang = getUserLanguage(chatId);
+    ctx.reply('Этот раздел находится в разработке. Пожалуйста, выберите LUCKY JET.', {
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: getMessage('luckyjet_button', lang), callback_data: 'game_luckyjet' }],
+          [{ text: getMessage('back_to_menu', lang), callback_data: 'main_menu' }]
+        ]
+      }
+    }).catch(err => console.error('Error sending placeholder message:', err));
+  } else if (data === 'game_luckyjet') {
+    await ctx.deleteMessage().catch(err => console.error('Error deleting message:', err));
+    const lang = getUserLanguage(chatId);
+    ctx.replyWithPhoto('https://i.imgur.com/KF1GgYS.jpeg', {
+      caption: getMessage('luckyjet_welcome', lang),
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: getMessage('get_signal', lang), url: MINI_APP_URL }]
+        ]
+      }
+    }).catch(err => {
+      console.error('Error sending Lucky Jet message with photo:', err);
+      ctx.reply(getMessage('luckyjet_welcome', lang), {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: getMessage('get_signal', lang), url: MINI_APP_URL }]
+          ]
+        }
+      }).catch(fallbackErr => console.error('Error sending fallback Lucky Jet message:', fallbackErr));
+    });
+  }
+  ctx.answerCbQuery().catch(err => console.error('Error answering callback:', err));
+});
+
+// Приветственное сообщение
+async function sendWelcomeMessage(ctx, lang) {
+  const chatId = String(ctx.chat.id); // Приводим к строке
+  console.log(`Sending welcome message to user ${chatId} with language ${lang}`);
+  ctx.reply(getMessage('welcome', lang), {
+    reply_markup: {
+      inline_keyboard: [
+        [{ text: getMessage('continue_button', lang), callback_data: 'continue' }]
+      ]
+    }
+  }).catch(err => console.error('Error sending welcome message:', err));
+}
+
+// Главное меню с фотографией и кнопками в два столбца
+async function sendMainMenu(ctx, lang) {
+  const chatId = String(ctx.chat.id); // Приводим к строке
+  console.log(`Sending main menu to user ${chatId} with language ${lang}`);
+  ctx.replyWithPhoto('https://i.imgur.com/x8J6K8l.png', {
+    caption: getMessage('main_menu', lang),
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: getMessage('registration_button', lang), callback_data: 'registration' },
+          { text: getMessage('instruction_button', lang), callback_data: 'instruction' }
+        ],
+        [
+          { text: getMessage('select_language_button', lang), callback_data: 'select_language' },
+          { text: getMessage('help_button', lang), callback_data: 'help' }
+        ],
+        [
+          { text: getMessage('get_signal_button', lang), callback_data: 'get_signal' }
+        ]
+      ]
+    }
+  }).catch(err => {
+    console.error('Error sending main menu with photo:', err);
+    ctx.reply(getMessage('main_menu', lang), {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            { text: getMessage('registration_button', lang), callback_data: 'registration' },
+            { text: getMessage('instruction_button', lang), callback_data: 'instruction' }
+          ],
+          [
+            { text: getMessage('select_language_button', lang), callback_data: 'select_language' },
+            { text: getMessage('help_button', lang), callback_data: 'help' }
+          ],
+          [
+            { text: getMessage('get_signal_button', lang), callback_data: 'get_signal' }
+          ]
+        ]
+      }
+    }).catch(fallbackErr => console.error('Error sending fallback main menu:', fallbackErr));
+  });
+}
+
+// Глобальный обработчик ошибок
+bot.catch((err, ctx) => {
+  console.error(`Error for ${ctx.updateType}:`, err);
+  ctx.reply('Произошла ошибка. Попробуйте позже.');
+});
+
+// Запуск сервера
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  const isProduction = process.env.NODE_ENV === 'production';
+  if (isProduction) {
+    bot.telegram.setWebhook(`${APP_URL}/webhook`).then(() => {
+      console.log(`Webhook set to ${APP_URL}/webhook`);
+    }).catch(err => console.error('Error setting webhook:', err));
+    app.use(bot.webhookCallback('/webhook'));
+  } else {
+    bot.launch().then(() => {
+      console.log('Bot started in polling mode');
+    }).catch(err => console.error('Error starting bot:', err));
+  }
+});
+
+// Закрытие базы данных при завершении работы
+process.on('SIGINT', () => {
+  db.close();
+  console.log('Database closed');
+  process.exit(0);
+});
+   
