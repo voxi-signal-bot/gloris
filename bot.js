@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const Database = require('better-sqlite3');
 
 // Настройки бота
-const BOT_TOKEN = '7972214608:AAHs-_2wModvEWKeEcYyEHHgV4nQaQGNgBk';
+const BOT_TOKEN = '';
 const CHANNEL_ID = '@xuiuugg';
 const MINI_APP_URL = 'https://voxi-mini-app-production.up.railway.app';
 const APP_URL = 'https://gloris-production.up.railway.app';
@@ -500,7 +500,7 @@ Maksimum kâr elde etmek için şu talimatları izleyin:
 🟢 4. Tuzak sayısını üçe ayarlayın. Bu önemli!
 🟢 5. Bottan sinyal talep edin ve botun sinyallerine göre bahis yapın.
 🟢 6. Başarısız bir sinyal durumunda, kaybı tamamen telafi etmek için bir sonraki sinyalle bahsinizi ikiye katlamanızı (x²) öneririz.`,
- registration_success: 'Başarılı kayıt için tebrikler! 🥳\n🌐 Adım 2 - İlk para yatırmayı yap.\n✦ Yatırım ne kadar büyükse, botta SEVİYE o kadar yüksek olur ve seviye ne kadar yüksekse, o kadar çok yüksek olasılıklı sinyal alırsınız.\n● İlk para yatırma işleminden sonra bota otomatik bir bildirim alacaksınız.',
+    registration_success: 'Başarılı kayıt için tebrikler! 🥳\n🌐 Adım 2 - İlk para yatırmayı yap.\n✦ Yatırım ne kadar büyükse, botta SEVİYE o kadar yüksek olur ve seviye ne kadar yüksekse, o kadar çok yüksek olasılıklı sinyal alırsınız.\n● İlk para yatırma işleminden sonra bota otomatik bir bildirim alacaksınız.',
     deposit_button: 'Para yatır',
     select_game: 'Oyun seç:',
     aviator_button: 'AVIATOR',
@@ -797,4 +797,3 @@ process.on('SIGINT', () => {
   console.log('Database closed');
   process.exit(0);
 });
-   
