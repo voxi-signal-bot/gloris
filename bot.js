@@ -716,7 +716,8 @@ bot.on('callback_query', async (ctx) => {
 async function sendWelcomeMessage(ctx, lang) {
   const chatId = String(ctx.chat.id); // Приводим к строке
   console.log(`Sending welcome message to user ${chatId} with language ${lang}`);
-  ctx.reply(getMessage('welcome', lang), {
+  ctx.replyWithPhoto('https://i.imgur.com/q6qKUxG.jpeg', {
+      caption: getMessage('welcome', lang),
     reply_markup: {
       inline_keyboard: [
         [{ text: getMessage('continue_button', lang), callback_data: 'continue' }]
